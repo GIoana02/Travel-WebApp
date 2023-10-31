@@ -10,48 +10,82 @@
 
 </head>
 <body>
-    <section class="header">
+    <div class="header">
         <nav>
-            <a href="TravellingPlanner.html"><img src="images/logo0.png" width="120px"></a>
-            <div class="nav-links">
-                <ul>
-                    <li><a href="">HOME</a></li>
-                    <li><a href="">OFFERS</a></li>
-                    <li><a href="">ORDERS</a></li>
-                    <li><a href="">FAVORITES</a></li>
-                    <li><a href="">ACCOUNT</a></li>
-                </ul>
-            </div>
+            <img src="images/logo0.png" class="logo0">
+            <ul class="nav-links">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">OFFERS</a></li>
+                <li><a href="#">ORDERS</a></li>
+                <li><a href="#">FAVORITES</a></li>
+                <li><a href="#">ACCOUNT</a></li>  
+            </ul>
+            <a href="#" class="register-btn">Register Now</a>
         </nav>
-        <div class="text-box">
-            <h1>Let us be your guide to an unforrgettable vacation!</h1>
+        <div class="container">
+            <div class="text-box">
+                <h1>Let us be your guide to an unforgettable vacation!</h1>
+                <div class="search-bar">
+                    <form>
+                        <div class="location-input">
+                            <label>Location</label>
+                            <input type="text" placeholder="Where are you going?">
+                        </div>
+                        <div>
+                            <label>Check In</label>
+                            <input type="text" placeholder="Choose date">
+                        </div>
+                        <div>
+                            <label>Check Out</label>
+                            <input type="text" placeholder="Choose date">
+                        </div>
+                        <div>
+                            <label>Guests</label>
+                            <input type="text" placeholder="Add no. of guests">
+                        </div>
+                        <button type="submit"><img src="images/search1.jpeg"></button>
+                    </form>
+                </div>
+            </div>    
+            
         </div>
-    </section>
-    <section class="bookings">
-        <h1>Hotels & Flights</h1>
+    </div>
+    
+    <!----categories---->
+    <div class="bookings">
+        <h1>Recomended Hotels & Flights</h1>
         <p>Don't miss your chance. Choose the one that suits you best!</p>
-    </section>
-
-<div class="categories">
-    <div class="small-container">
-        <div class="row">
-            <div class="col-3">
+        <div class="categories">
+            <div>
                 <img src="images/hotel.png">
+                <span>
+                    <h2>Book Hotel</h2>
+                    <p>Starting from 50$</p>
+                </span>
             </div>
-            <div class="col-3">
+            <div>
                 <img src="images/flights.png">
+                <span>
+                    <h2>Book Flights</h2>
+                    <p>Starting from 30$</p>
+                </span>
             </div>
-            <div class="col-3">
+            <div>
                 <img src="images/f&h.jpeg">
+                <span>
+                    <h2>View Offers</h2>
+                    <p>Starting from 150$/night</p>
+                </span>
             </div>
         </div>
     </div>
-</div>
+
+
 
 
 <!-----footer----->
 <div class="footer">
-    <div class="container">
+    <div class="container1">
         <div class="row">
             <div class="footer-col1">
                 <h3></h3>
