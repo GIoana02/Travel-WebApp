@@ -118,6 +118,7 @@ p{
     padding-bottom: 50px;
 }
 
+/*-----categories------*/
 .categories{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -130,6 +131,24 @@ p{
 .categories div{
     position: relative;
 }
+.categories .hotel-btn{
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+}
+.categories .flights-btn{
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+}
+.categories .hf-btn{
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+}
+
+
+/*-----about----*/
 .about{
     text-align: center;
     margin: 80px 0;
@@ -142,7 +161,7 @@ p{
     font-weight: 500;
 }
 
-
+/*----footer----*/
 .footer{
     margin: 50px 0;
     text-align: center;
@@ -164,3 +183,15 @@ p{
     padding-bottom: 15px;
 }
 
+/*------offers pg 2-----*/
+.nav-white{
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+.nav-white .nav-links li a{
+    color: #000;
+}
+.nav-white .register-btn{
+    background: #1f7cee;
+    color: #fff;
+}
