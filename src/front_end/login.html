@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Trip Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-container">
+        <form id="login-form">
+            <label for="user">Username:</label><br>
+            <input type="text" id="user" name="user"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <script>
+        // Add the event listener for the login form (as you provided in your question).
+        document.getElementById("login-form").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            event.preventDefault();
+        const user = document.getElementById("user").value;
+        const password = document.getElementById("password").value;
+
+        const response = await fetch("http://localhost:8000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "user": user, "password": password })
+        });
+
+        if (response.ok) {
+            // Handle a successful login here, e.g., redirect to a new page.
+            alert("Login successful!");
+        } else {
+            // Handle login failure here.
+            alert("Login failed!");
+        }
+        });
+    </script>
+</body>
+</html>
