@@ -21,4 +21,4 @@ ENTRYPOINT [ ".venv/bin/python3", "-m", "uvicorn", "--host", "0.0.0.0", "src.mai
 #install docker: https://docs.docker.com/get-docker/
 #docker build -t travelapp .
 #docker run -d --name travelapp -p 8000:8000 --mount type=bind,source="$(pwd)/src",target=/home/travelapp/src travelapp
-#docker logs -f blogapp
+#docker logs -f travelapp
