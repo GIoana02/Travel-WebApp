@@ -18,9 +18,9 @@
                 <li><a href="#">OFFERS</a></li>
                 <li><a href="#">ORDERS</a></li>
                 <li><a href="#">FAVORITES</a></li>
-                <li><a href="#">ACCOUNT</a></li>
+                <li><a href="#">ACCOUNT</a></li>  
             </ul>
-            <a href="#" id="register-btn">Register Now</a>
+            <a href="#" class="register-btn">Register Now</a>
         </nav>
         <div class="container">
             <div class="text-box">
@@ -46,73 +46,62 @@
                         <button type="submit"><img src="images/search1.jpeg"></button>
                     </form>
                 </div>
-            </div>
-
+            </div>    
+            
         </div>
     </div>
-
+    
     <!----categories---->
     <div class="bookings">
         <h1>Recomended Hotels & Flights</h1>
         <p>Don't miss your chance. Choose the one that suits you best!</p>
         <div class="categories">
             <div>
-                <img src="images/hotel.png">
+                <a href="#" class="imghotel-btn"><img src="images/hotel.png"></a>
                 <span>
+                    <a href="hotels.html" class="hotel-btn">
                     <h2>Book Hotel</h2>
-                    <p>Starting from 50$</p>
+                    <p>Starting from 50$</p></a>
                 </span>
             </div>
             <div>
-                <img src="images/flights.png">
+                <a href="#" class="imgflights-btn"><img src="images/flights.png"></a>
                 <span>
+                    <a href="#" class="flights-btn">
                     <h2>Book Flights</h2>
-                    <p>Starting from 30$</p>
+                    <p>Starting from 30$</p></a>
                 </span>
             </div>
             <div>
-                <img src="images/f&h.jpeg">
+                <a href="#" class="imghf-btn"><img src="images/f&h.jpeg"></a>
                 <span>
+                    <a href="#" class="hf-btn">
                     <h2>View Offers</h2>
-                    <p>Starting from 150$/night</p>
+                    <p>Starting from 150$/night</p></a>
                 </span>
             </div>
         </div>
     </div>
 
-    <div id="login-container" style="display: none;">
-        <form id="login-form">
-            <label for="user">Username:</label><br>
-            <input type="text" id="user" name="user"><br>
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password"><br><br>
-            <input type="submit" value="Login">
-        </form>
-    </div>
-
-    <script>
-    // Add an event listener to the "Register Now" button to show the login form.
-    document.getElementById("register-btn").addEventListener("click", function () {
-            window.open("login.html", "_blank");
-        });
-</script>
 
 
 
 <!-----footer----->
-    <div class="about">
-        <h3>About Trip Planner</h3>
-        <p>Welcome to Trip Planner, your one-stop destination for hassle-free travel planning.
-            Whether you're dreaming of an exotic getaway, a business trip, or a quick weekend escape,
-            <br>we're here to make your travel experience seamless and unforgettable.</p>
-    </div>
-
+<div class="about">
+    <h3>About Trip Planner</h3>
+    <p>Welcome to Trip Planner, your one-stop destination for hassle-free travel planning. 
+        Whether you're dreaming of an exotic getaway, a business trip, or a quick weekend escape,
+        <br>we're here to make your travel experience seamless and unforgettable.</p>
+</div>
+<div class="container">
     <div class="footer">
         <a href="https://facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
         <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
         <hr>
         <p>Copyright © 2023, Trip Planner.</p>
     </div>
+</div>
+
 
 
 </body>

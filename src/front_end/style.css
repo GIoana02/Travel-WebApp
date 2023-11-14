@@ -183,7 +183,7 @@ p{
     padding-bottom: 15px;
 }
 
-/*------offers pg 2-----*/
+/*------hotels pg 2-----*/
 .nav-white{
     background: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
@@ -194,4 +194,50 @@ p{
 .nav-white .register-btn{
     background: #1f7cee;
     color: #fff;
+}
+.list-container{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.left-col{
+    flex-basis: 70%;
+}
+.right-col{
+    flex-basis: 25%;
+}
+.left-col h1{
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.hotels{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 30px 0;
+    border-top: 1px solid #ccc;
+}
+.hotels-img{
+    flex-basis: 40%;
+}
+.hotels-info{
+    flex-basis: 58%;
+    color: #555;
+}
+.hotels-img img{
+    width: 100%;
+    border-radius: 12px;
+}
+.hotels-info h2{
+    font-weight: 600;
+    color: #333;
+    font-size: 22px;
+    margin: 4px 0;
+}
+.hotels-info i{
+    color: #1f7cee;
+    font-size: 18px;
+    margin: 10px 1px;
 }
