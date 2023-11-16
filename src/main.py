@@ -13,7 +13,7 @@ app.include_router(userAccount.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change this to your actual frontend's origin
+    allow_origins=["http://localhost:63342"],  # Change this to your actual frontend's origin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

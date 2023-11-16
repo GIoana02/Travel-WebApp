@@ -1,14 +1,15 @@
+import os
 import sqlite3
+import os
 
-DATABASE_NAME = "src/database/user_database/user_database.db"
-
+DATABASE_NAME = "src/database/user_database/user.db"
 
 def create_connection():
     try:
         connection = sqlite3.connect(DATABASE_NAME)
         return connection
     except sqlite3.Error as e:
-        print(f"Error connecting to the database {e}")
+        print(f"Error connecting to the database: {e}")
     return None
 
 
@@ -71,7 +72,7 @@ def add_user(username: str, email: str, password: str):
     try:
         cursor = connection.cursor()
 
-        cursor.execute("INSERT INTO Users (username, email, password) VALUES (?, ?, ?)", (username, email, password))
+        cursor.execute("INSERT INTO UserInfo (username, email, password) VALUES (?, ?, ?)", (username, email, password))
         connection.commit()
         print("User added successfully.")
     except sqlite3.Error as e:
@@ -84,7 +85,7 @@ def get_user_by_username(username: str):
     try:
         cursor = connection.cursor()
 
-        cursor.execute("SELECT id, password FROM Users WHERE username = ?", (username,))
+        cursor.execute("SELECT id, password FROM UserInfo WHERE username = ?", (username,))
         return cursor.fetchone()
     except sqlite3.Error as e:
         print(f"Error retrieving user: {e}")
@@ -190,3 +191,5 @@ def delete_favorite_hotel(email: str, favorite_hotel_id: int):
         return False
     finally:
         connection.close()
+
+create_table()

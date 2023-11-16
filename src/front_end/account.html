@@ -28,18 +28,18 @@
                 <span onclick="register()">Register</span>
                 <hr id="Indicator">
             </div>
-            <form id="LoginForm">
-                <input type="username" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <button type="Submit" class="btn">Login</button>
-                <a href="">Forgot password</a>
+            <form id="LoginForm" action="/login">
+                <input type="text" id="loginUsername" placeholder="Username">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <input type="submit" class="btn" value="Login">
+                <a href="#">Forgot password</a>
             </form>
 
-            <form id="RegisterForm">
-                <input type="username" placeholder="Username">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button type="Submit" class="btn">Register</button>
+            <form id="RegisterForm" action="/register">
+                <input type="text" id="registerUsername" placeholder="Username">
+                <input type="email" id="registerEmail" placeholder="Email">
+                <input type="password" id="registerPassword" placeholder="Password">
+                <input type="submit" class="btn" value="Register">
             </form>
         </div>
 
@@ -71,6 +71,8 @@
             Indicator.style.transform = "translateX(0px)";
         }
     </script>
+
+    <script src="login_register_connection.js"></script>
 
 </body>
 </html>
