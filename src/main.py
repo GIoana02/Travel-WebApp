@@ -1,20 +1,22 @@
-from src.back_end.login import login, UserCredentials
+from src.back_end.routers import login, hotel, room, userAccount
+
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from requests import request
 
+
 app = FastAPI()
+app.include_router(login.router)
+app.include_router(hotel.router)
+app.include_router(room.router)
+app.include_router(userAccount.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change this to your actual frontend's origin
+    allow_origins=["http://localhost:63342"],  # Change this to your actual frontend's origin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-@app.post("/login")
-async def login_meth(user_data: UserCredentials):
-    user = user_data.user
-    password = user_data.password
-    result = login(user, password)
-    return result
+
+
