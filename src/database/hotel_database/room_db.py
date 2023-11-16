@@ -1,6 +1,6 @@
 import sqlite3
 
-DATABASE_NAME = "travel_database.db"
+DATABASE_NAME = "src/database/hotel_database/hotel_database.db"
 
 
 def create_connection(DATABASE_NAME):
@@ -21,7 +21,7 @@ def create_table():
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS Rooms (
                     room_id INTEGER PRIMARY KEY,
-                    hotel_id INTEGER REFERENCES hotels(hotel_id),
+                    hotel_id INTEGER REFERENCES Hotels(hotel_id),
                     room_number TEXT,
                     room_type TEXT,
                     capacity INTEGER,

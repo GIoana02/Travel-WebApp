@@ -1,4 +1,4 @@
-from src.back_end.routers import login, hotel, room
+from src.back_end.routers import login, hotel, room, userAccount
 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
@@ -9,6 +9,7 @@ app = FastAPI()
 app.include_router(login.router)
 app.include_router(hotel.router)
 app.include_router(room.router)
+app.include_router(userAccount.router)
 
 app.add_middleware(
     CORSMiddleware,
