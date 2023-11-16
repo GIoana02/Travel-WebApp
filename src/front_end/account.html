@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Trip Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/dea52b905f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav id="navbar" class="nav-white">
+        <a href="TravellingPlanner.html"><img src="images/logo0.png" class="logo0"></a>
+        <ul class="nav-links">
+            <li><a href="TravellingPlanner.html">HOME</a></li>
+            <li><a href="offers.html">OFFERS</a></li>
+            <li><a href="orders.html">ORDERS</a></li>
+            <li><a href="favorites.html">FAVORITES</a></li>
+            <li><a href="account.html">ACCOUNT</a></li>  
+        </ul>
+        <a href="account.html" class="register-btn">Register Now</a>
+    </nav>
+    <div class="account-page">
+        <div class="form-container">
+            <div class="form-btn">
+                <span onclick="login()">Login</span>
+                <span onclick="register()">Register</span>
+                <hr id="Indicator">
+            </div>
+            <form id="LoginForm">
+                <input type="username" placeholder="Username">
+                <input type="password" placeholder="Password">
+                <button type="Submit" class="btn">Login</button>
+                <a href="">Forgot password</a>
+            </form>
+
+            <form id="RegisterForm">
+                <input type="username" placeholder="Username">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <button type="Submit" class="btn">Register</button>
+            </form>
+        </div>
+
+    
+        
+        <div class="footer">
+            <a href="https://facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+            <hr>
+            <p>Copyright © 2023, Trip Planner.</p>
+        </div>
+    </div>
+    
+
+
+    <script>
+        var LoginForm = document.getElementById("LoginForm");
+        var RegisterForm = document.getElementById("RegisterForm");
+        var Indicator = document.getElementById("Indicator");
+
+        function register(){
+            RegisterForm.style.transform = "translateX(0px)";
+            LoginForm.style.transform = "translateX(0px)";
+            Indicator.style.transform = "translateX(135px)";
+        }
+        function login(){
+            RegisterForm.style.transform = "translateX(350px)";
+            LoginForm.style.transform = "translateX(350px)";
+            Indicator.style.transform = "translateX(0px)";
+        }
+    </script>
+
+</body>
+</html>
