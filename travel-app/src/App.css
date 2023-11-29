@@ -1,0 +1,363 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.header{
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)), url(images/banner1.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo0{
+    width: 120px;
+    cursor: pointer;
+}
+.nav-links li{
+    list-style: none;
+    display: inline-block;
+    margin: 10px 30px;
+}
+.nav-links li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+}
+.register-btn{
+    display: right;
+    background: #fff;
+    color: #000;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.nav-links li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #1f7cee;
+    display: block;
+    transition: 0.5s;
+}
+.nav-links li:hover::after{
+    width: 100%;
+}
+.container{
+    padding: 0 7%;
+}
+.header h1{
+    font-size: 4vw;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+.search-bar{
+    background: #fff;
+    width: 60%;
+    margin: 30px auto;
+    padding: 6px 10px 6px 30px;
+    border-radius: 50px;
+}
+.search-bar form{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.search-bar form input{
+    display: block;
+    align-content: center;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.search-bar form button{
+    background: #1f7cee;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 0;
+    outline: none;
+}
+.search-bar form button img{
+    width: 40px;
+}
+.location-input{
+    flex: 1;
+}
+.search-bar form label{
+    font-weight: 600;
+}
+
+.bookings{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+p{
+    color: #777;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+    padding-bottom: 50px;
+}
+
+/*-----categories------*/
+.categories{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 30px;
+}
+.categories div img{
+    width: 100%;
+    border-radius: 10px;
+}
+.categories div{
+    position: relative;
+}
+.categories .hotel-btn{
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+}
+.categories .flights-btn{
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+}
+.categories .hf-btn{
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+}
+
+
+/*-----about----*/
+.about{
+    text-align: center;
+    margin: 80px 0;
+    color: #333;
+    font-size: 17px;
+}
+.about h3{
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/*----footer----*/
+.footer{
+    margin: 50px 0;
+    text-align: center;
+}
+.footer a{
+    text-decoration: none;
+    color: #999;
+    font-size: 25px;
+    margin: 0 10px;
+}
+.footer hr{
+    background: #999;
+    height: 1px;
+    width: 100%;
+    border: 0;
+    margin: 20px 0;
+}
+.footer p{
+    padding-bottom: 15px;
+}
+
+/*------hotels pg 2-----*/
+.nav-white{
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+.nav-white .nav-links li a{
+    color: #000;
+}
+.nav-white .register-btn{
+    background: #1f7cee;
+    color: #fff;
+}
+.list-container{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.left-col{
+    flex-basis: 70%;
+}
+.right-col{
+    flex-basis: 25%;
+}
+.left-col h1{
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.hotels{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 30px 0;
+    border-top: 1px solid #ccc;
+}
+.hotels-img{
+    flex-basis: 40%;
+}
+.hotels-info{
+    flex-basis: 58%;
+    color: #555;
+}
+.hotels-img img{
+    width: 100%;
+    border-radius: 12px;
+}
+.hotels-info h2{
+    font-weight: 600;
+    color: #333;
+    font-size: 22px;
+    margin: 4px 0;
+}
+.hotels-info i{
+    color: #1f7cee;
+    font-size: 18px;
+    margin: 10px 1px;
+}
+
+
+/*-----account page----*/
+.nav-white{
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+.nav-white .nav-links li a{
+    color: #000;
+}
+.nav-white .register-btn{
+    background: #1f7cee;
+    color: #fff;
+}
+.account-page{
+    padding: 50 px 0;
+    background: radial-gradient(#fff, #a3cbff);
+}
+.form-container{
+    background: #fff;
+    width: 350px;
+    height: 450px;
+    position: relative;
+    text-align: center;
+    padding: 20px 0px;
+    margin: auto;
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+.form-container span{
+    font-weight: bold;
+    padding: 0 10px;
+    color: #555;
+    cursor: pointer;
+    width: 100px;
+    display: inline-block;
+}
+.form-btn{
+    display: inline-block;
+}
+.form-container form{
+    max-width: 300px;
+    padding: 0 20px;
+    position: absolute;
+    top: 130px;
+    transition: transform 1s;
+}
+form input{
+    width: 100%;
+    height: 30px;
+    margin: 10px 0;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+}
+form .btn{
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+}
+form .btm:focus{
+    outline: none;
+}
+#LoginForm{
+    left: -350px;
+}
+#RegisterForm{
+    left: 0;
+}
+form a{
+    font-size: 12px;
+}
+#Indicator{
+    width: 100px;
+    border: none;
+    background: #1f7cee;
+    height: 3px;
+    margin-top: 8px;
+    transform: translateX(135px);
+    transition: transform 1s;
+}

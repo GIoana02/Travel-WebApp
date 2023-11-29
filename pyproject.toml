@@ -2,16 +2,13 @@
 name = "Travel-WebApp"
 version = "0.1.0"
 description = ""
-authors = ["Grigoriu Ioana, Andreea Galetan"]
+authors = ["Grigoriu Ioana", "Andreea Galetan"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.68.0"
 uvicorn = "^0.15.0"
-flask ="^2.1.0"
 passlib = "^1.7.4"
-bcrypt = "^3.2.0"
-fastapi.middleware.cors = "^0.3.0"
 
 [tool.poetry.dev-dependencies]
 

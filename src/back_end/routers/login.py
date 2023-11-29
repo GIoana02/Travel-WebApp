@@ -25,9 +25,9 @@ async def register_user(user: UserRegistration):
         raise HTTPException(status_code=400, detail="Username already exists")
 
 @router.post("/login")
-async def login_user(user_login: UserLogin):
-    user_data = get_user_by_username(user_login.username)
-    if user_data and verify_password(user_login.password, user_data[1]):
+async def login_user(login: UserLogin):
+    user_data = get_user_by_username(login.username)
+    if user_data and verify_password(login.password, user_data[1]):
         return {"message": "Login successful"}
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials")
