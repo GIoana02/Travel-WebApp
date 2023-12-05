@@ -26,7 +26,7 @@ const LoginPage = ({ isLoggedIn, onLogin }) => {
         // Set user as logged in
         onLogin();
         // Redirect to another page (e.g., main page)
-        navigate('/MainPage');
+        navigate('/Home');
       } else {
         // Handle login failure (e.g., show error message)
         console.error('Login failed');
@@ -39,9 +39,9 @@ const LoginPage = ({ isLoggedIn, onLogin }) => {
   return (
   <div>
     <nav id="navbar" className="nav-white">
-        <Link to="/MainPage"><img src={logoImage} className="logo0" alt="Logo"/></Link>
+        <Link to="/Home"><img src={logoImage} className="logo0" alt="Logo"/></Link>
           <ul className="nav-links">
-            <li><Link to="/MainPage">HOME</Link></li>
+            <li><Link to="/Home">HOME</Link></li>
             <li><Link to="/Offers">OFFERS</Link></li>
             <li><Link to="/Orders">ORDERS</Link></li>
             <li><Link to="/Favorites">FAVORITES</Link></li>

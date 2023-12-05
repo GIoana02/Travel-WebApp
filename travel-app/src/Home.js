@@ -4,17 +4,17 @@ import searchImg from "./images/search1.jpeg";
 import hotelImg from "./images/hotel.png";
 import flightImg from "./images/flights.png";
 import fhImg from "./images/f&h.jpeg";
-import "./App.css";
+import "./app.css";
 import {Link} from "react-router-dom"
 
-const MainPage = () => {
+const Home = () => {
 return (
     <div>
       <div className="header">
           <nav>
-              <Link to="/MainPage"><img src={logoImage} className="logo0" alt="Logo"/></Link>
+              <Link to="/Home"><img src={logoImage} className="logo0" alt="Logo"/></Link>
               <ul className="nav-links">
-                  <li><Link to="/MainPage">HOME</Link></li>
+                  <li><Link to="/Home">HOME</Link></li>
                   <li><Link to="/Offers">OFFERS</Link></li>
                   <li><Link to="/Orders">ORDERS</Link></li>
                   <li><Link to="/Favorites">FAVORITES</Link></li>
@@ -102,4 +102,4 @@ return (
 );
 };
 
-export default MainPage;
+export default Home;

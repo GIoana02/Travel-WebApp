@@ -26,7 +26,7 @@ const Register = () => {
       if (response.status === 200) {
         // Assuming successful registration
         // Redirect to login page or any other page
-        navigate('/MainPage');
+        navigate('/Home');
       } else {
         // Handle registration failure (e.g., show error message)
         console.error('Registration failed');
@@ -39,9 +39,9 @@ const Register = () => {
   return (
     <div>
       <nav id="navbar" className="nav-white">
-        <Link to="/MainPage"><img src={logoImage} className="logo0" alt="Logo"/></Link>
+        <Link to="/Home"><img src={logoImage} className="logo0" alt="Logo"/></Link>
           <ul className="nav-links">
-            <li><Link to="/MainPage">HOME</Link></li>
+            <li><Link to="/Home">HOME</Link></li>
             <li><Link to="/Offers">OFFERS</Link></li>
             <li><Link to="/Orders">ORDERS</Link></li>
             <li><Link to="/Favorites">FAVORITES</Link></li>
@@ -70,7 +70,7 @@ const Register = () => {
             <p>Copyright © 2023, Trip Planner.</p>
           </div>
     </div>
-    </div>
+  </div>
   );
 };
 

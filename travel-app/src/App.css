@@ -1,9 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
 }
+/*
+:root{
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right,hsl(187, 85%, 43%),  hsl(199, 100%, 33%));
+    --whiteColor: hsl(0,0%,100%);
+    --blackColor: hsl(201,33%,16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0,0%,93%);
+    --greyText: rgb(190,190,190);
+    --inputColor: rgb(239,239,239);
+    --bodyColor: rgb(240,240,246);
+    --cardBG: rgb(255,255,235);
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+.section{
+    padding: 4rem 0 2rem;
+}
+.container{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+.icon{
+    font-size: 2rem;
+    cursor: pointer;
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+.grid{
+    display: grid;
+    align-items: center;
+}
+.btn{
+    padding: .6rem 1.5rem;
+    background: var(--gradientColor);
+    border-radius: 3rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.btn a{
+    color: var(--whiteColor);
+    font-weight: 500;
+}
+.btn:hover{
+    background: var(--SecondaryColor);
+}
+img{
+    width: 100%;
+    height: auto;
+}
+input{
+    font-size: 100%;
+}
+body{
+    background: var(--bodyColor);
+}*/
 
+/*
 .App {
   text-align: center;
 }
@@ -41,7 +108,8 @@
   to {
     transform: rotate(360deg);
   }
-}
+}*/ 
+/*      Main Page   */
 .header{
     min-height: 100vh;
     width: 100%;
@@ -103,7 +171,7 @@ nav{
 }
 .search-bar{
     background: #fff;
-    width: 60%;
+    width: 70%;
     margin: 30px auto;
     padding: 6px 10px 6px 30px;
     border-radius: 50px;
@@ -156,7 +224,6 @@ p{
     padding: 10px;
     padding-bottom: 50px;
 }
-
 /*-----categories------*/
 .categories{
     display: grid;
@@ -185,8 +252,6 @@ p{
     color: #000;
     text-decoration: none;
 }
-
-
 /*-----about----*/
 .about{
     text-align: center;
@@ -199,7 +264,6 @@ p{
     margin-bottom: 20px;
     font-weight: 500;
 }
-
 /*----footer----*/
 .footer{
     margin: 50px 0;
@@ -222,7 +286,10 @@ p{
     padding-bottom: 15px;
 }
 
-/*------hotels pg 2-----*/
+/*------hotels-----*/
+.header1{
+    background-color: #fff;
+}
 .nav-white{
     background: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
@@ -244,7 +311,7 @@ p{
     flex-basis: 70%;
 }
 .right-col{
-    flex-basis: 25%;
+    flex-basis: 20%;
 }
 .left-col h1{
     color: #333;
@@ -260,9 +327,11 @@ p{
 }
 .hotels-img{
     flex-basis: 40%;
+    max-width: 400px;
 }
 .hotels-info{
     flex-basis: 58%;
+    font-size: 14px;
     color: #555;
 }
 .hotels-img img{
@@ -273,12 +342,14 @@ p{
     font-weight: 600;
     color: #333;
     font-size: 22px;
-    margin: 4px 0;
+    margin: 0px 0;
+    flex: auto;
 }
 .hotels-info i{
     color: #1f7cee;
     font-size: 18px;
-    margin: 10px 1px;
+    margin: 0px 1px;
+    flex: 1;
 }
 
 
@@ -340,7 +411,7 @@ form .btn{
     cursor: pointer;
     margin: 10px 0;
 }
-form .btm:focus{
+form .btn:focus{
     outline: none;
 }
 #LoginForm{
@@ -361,3 +432,4 @@ form a{
     transform: translateX(135px);
     transition: transform 1s;
 }
+
