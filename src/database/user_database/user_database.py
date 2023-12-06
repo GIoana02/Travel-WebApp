@@ -86,6 +86,7 @@ def get_user_by_username(username: str):
         cursor = connection.cursor()
 
         cursor.execute("SELECT id, password FROM UserInfo WHERE username = ?", (username,))
+        print("User login successfully.")
         return cursor.fetchone()
     except sqlite3.Error as e:
         print(f"Error retrieving user: {e}")

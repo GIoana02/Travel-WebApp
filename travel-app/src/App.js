@@ -8,13 +8,20 @@ import Flights from './Flights';
 import Offers from './Offers';
 import Orders from './Orders';
 import Account from './Account';
+import ImageComponent from './ImageSelector';
 import AddImg from './AddImg';
 
 const App = () => {
+  const handleLogin = () => {
+    // Logic to handle login
+    console.log('Logged in'); // Placeholder for login logic
+  };
+
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Hotels" element={<Hotels />} />
@@ -23,6 +30,7 @@ const App = () => {
         <Route path="/Orders" element={<Orders />} />
         <Route path="/Account" element={<Account />} />
         <Route path="/AddImg" element={<AddImg />} />
+        <Route path="/SelectImage" element={<ImageComponent />} />
         {/* Add more routes for other pages */}
       </Routes>
     </div>

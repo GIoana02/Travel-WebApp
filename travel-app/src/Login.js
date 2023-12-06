@@ -4,7 +4,7 @@ import api from "./api";
 import { Link } from 'react-router-dom';
 import logoImage from "./images/logo0.png";
 
-const LoginPage = ({ isLoggedIn, onLogin }) => {
+const Login = () => {
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -19,22 +19,17 @@ const LoginPage = ({ isLoggedIn, onLogin }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Login data:', loginData);
-    /*try {
-      const response = await api.post('/user/login', loginData); 
+    try {
+      const response = await api.post('/user/login', loginData);
       if (response.status === 200) {
-        // Assuming successful login
-        // Set user as logged in
-        onLogin();
-        // Redirect to another page (e.g., main page)
-        navigate('/');
+        console.log(response.data.message)
+        navigate('/Home');
       } else {
-        // Handle login failure (e.g., show error message)
         console.error('Login failed');
       }
     } catch (error) {
       console.error('Error:', error);
-    }*/
+    }
   };
 
   return (
@@ -57,9 +52,24 @@ const LoginPage = ({ isLoggedIn, onLogin }) => {
           <hr id="Indicator" />
         </div>
         <form id="LoginForm" onSubmit={handleLogin}>
-          <input type="text" id="loginUsername" placeholder="Username" onChange={handleInputChange}/>
-          <input type="password" id="loginPassword" placeholder="Password" onChange={handleInputChange}/>
-          <input type="submit" className="btnlog" value="Login" />
+          <input
+            type="text"
+            id="loginUsername"
+            name="username" // Add 'name' attribute
+            placeholder="Username"
+            value={loginData.username} // Connect value to state
+            onChange={handleInputChange} // Connect onChange to update state
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            name="password" // Add 'name' attribute
+            placeholder="Password"
+            value={loginData.password} // Connect value to state
+            onChange={handleInputChange} // Connect onChange to update state
+          />
+          <input type="submit" className="btn" value="Login" />
+          <Link to="/">Forgot password</Link>
           <Link to="/Register">Don't have an account? Register here.</Link>
         </form>
       </div>
@@ -74,4 +84,4 @@ const LoginPage = ({ isLoggedIn, onLogin }) => {
   );
 };
 
-export default LoginPage;
+export default Login;
