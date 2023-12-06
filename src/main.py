@@ -1,7 +1,7 @@
 from src.back_end.routers import login, hotel, room, userAccount
 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File
 from requests import request
 
 
@@ -22,5 +22,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
+@app.post("/upload")
+async def receiveFile(file: bytes = File(...)):
+    print(file)

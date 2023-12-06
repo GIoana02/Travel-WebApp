@@ -4,7 +4,7 @@ import searchImg from "./images/search1.jpeg";
 import hotelImg from "./images/hotel.png";
 import flightImg from "./images/flights.png";
 import fhImg from "./images/f&h.jpeg";
-import "./app.css";
+import "./App.css";
 import {Link} from "react-router-dom"
 
 const Home = () => {
@@ -12,15 +12,15 @@ return (
     <div>
       <div className="header">
           <nav>
-              <Link to="/Home"><img src={logoImage} className="logo0" alt="Logo"/></Link>
+              <Link to="/"><img src={logoImage} className="logo0" alt="Logo"/></Link>
               <ul className="nav-links">
-                  <li><Link to="/Home">HOME</Link></li>
+                  <li><Link to="/">HOME</Link></li>
                   <li><Link to="/Offers">OFFERS</Link></li>
                   <li><Link to="/Orders">ORDERS</Link></li>
                   <li><Link to="/Favorites">FAVORITES</Link></li>
                   <li><Link to="/Account">ACCOUNT</Link></li>  
               </ul>
-              <Link to="/Register" className="register-btn">Register Now</Link>
+              <Link to="/Login" className="register-btn">Log In</Link>
           </nav>
           <div className="container">
               <div className="text-box">
@@ -29,19 +29,19 @@ return (
                       <form>
                           <div className="location-input">
                               <label>Location</label>
-                              <input type="text" placeholder="Where are you going?"/>
+                              <input type="text" placeholder="Choose destination:"/>
                           </div>
                           <div>
                               <label>Check In</label>
-                              <input type="text" placeholder="Choose date"/>
+                              <input type="text" placeholder="From:"/>
                           </div>
                           <div>
                               <label>Check Out</label>
-                              <input type="text" placeholder="Choose date"/>
+                              <input type="text" placeholder="To:"/>
                           </div>
                           <div>
                               <label>Guests</label>
-                              <input type="text" placeholder="Add no. of guests"/>
+                              <input type="text" placeholder="No. of Guests:"/>
                           </div>
                           <button type="submit"><img src={searchImg} className="search1" alt="Search"/></button>
                       </form>

@@ -7,15 +7,15 @@ return (
     <div>
         <div className="header1">
             <nav id="navbar" className="nav-white">
-                <Link to="/Home"><img src={logoImage} className="logo0" alt="Logo"/></Link>
+                <Link to="/"><img src={logoImage} className="logo0" alt="Logo"/></Link>
                 <ul className="nav-links">
-                    <li><Link to="/Home">HOME</Link></li>
+                    <li><Link to="/">HOME</Link></li>
                     <li><Link to="/Offers">OFFERS</Link></li>
                     <li><Link to="/Orders">ORDERS</Link></li>
                     <li><Link to="/Favorites">FAVORITES</Link></li>
                     <li><Link to="/Account">ACCOUNT</Link></li>  
                 </ul>
-                <Link to="/Register" className="register-btn">Register Now</Link>
+                <Link to="/Login" className="register-btn">Log In</Link>
             </nav>
             <div className="container">
                 <div className="footer">
