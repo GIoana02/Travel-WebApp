@@ -292,6 +292,40 @@ p{
     flex-wrap: wrap;
     justify-content: space-between;
 }
+/* Add this CSS to your existing CSS file or create a new one */
+
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for table headers */
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Alternate row colors for better readability */
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Style for table cells */
+  td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  /* Hover effect on table rows */
+  tbody tr:hover {
+    background-color: #e2e2e2;
+    cursor: pointer;
+  }
+  
 .left-col{
     flex-basis: 70%;
 }

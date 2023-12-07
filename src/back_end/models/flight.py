@@ -9,9 +9,9 @@ class Flight(BaseModel):
     arrival_airport: str
     arrival_city: str
     arrival_time: str
-    duration: int
-    price: float
-    available_seats: int
+    duration: str
+    price: str
+    available_seats: str
     aircraft_type: str
     flight_class: str
     stopovers: str

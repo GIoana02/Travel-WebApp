@@ -98,16 +98,25 @@ def update_hotel_image_in_database(hotel_name: str, image_url: str):
     print("Hotel image URL updated in the database.")
 
 
-def get_hotel_by_id(hotel_name):
+def get_hotel_by_id_admin(hotel_name):
     connection = create_connection(DATABASE_NAME)
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM Hotels WHERE hotel_name=?", (hotel_name,))
+    cursor.execute("SELECT  FROM Hotels WHERE hotel_name=?", (hotel_name,))
     hotel = cursor.fetchone()
 
     connection.close()
     return hotel
 
+def get_hotel_by_id(hotel_name):
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT hotel_name, location_city, location_country, address, description, rating, room_prices FROM Hotels WHERE hotel_name=?", (hotel_name,))
+    hotel = cursor.fetchone()
+
+    connection.close()
+    return hotel
 
 def update_hotel(hotel_name, new_hotel_data):
     connection = create_connection(DATABASE_NAME)

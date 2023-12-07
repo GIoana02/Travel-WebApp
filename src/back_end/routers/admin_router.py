@@ -7,7 +7,7 @@ from src.back_end.models.flight import Flight
 from src.back_end.models.hotel import Hotel
 from src.back_end.models.room import Room
 from src.database.flights_database.flight_db import add_flight, delete_flight, update_flight, \
-    get_flight_by_flight_number, get_all_flights
+    get_flight_by_flight_number, get_all_flights, create_table
 from src.database.hotel_database.hotel_db import add_hotel, update_hotel_image_in_database, delete_hotel, update_hotel, \
     get_all_hotels_admin
 from src.database.hotel_database.room_db import add_room,update_room_image_in_database,update_room_availability, update_room, delete_room, get_room_by_id
@@ -23,6 +23,7 @@ async def create_room(room: Room):
         return {"message": "Room added successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
 @router.post("/upload-room-image/")
 async def upload_image(image: UploadFile = File(...), room_number: str = Form(...)):
     image_url = save_uploaded_image(room_number, image)
@@ -134,6 +135,7 @@ def save_uploaded_image(hotel_name: str,hotel_image: UploadFile):
 
 @router.post('/add_flight/')
 async def add_flight_endpoint(flight: Flight):
+    create_table()
     add_flight(flight)
     return {"message": "Flight added successfully"}
 

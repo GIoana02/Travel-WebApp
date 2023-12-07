@@ -1,6 +1,6 @@
 import sqlite3
 
-DATABASE_NAME = "flights_database.db"
+DATABASE_NAME = "src/database/flights_database/flights_database.db"
 def create_connection(DATABASE_NAME):
     try:
         connection = sqlite3.connect(DATABASE_NAME)
@@ -25,10 +25,10 @@ def create_table():
                         departure_time DATETIME,
                         arrival_airport TEXT,
                         arrival_city TEXT,
-                        arrival_time DATETIME,
-                        duration INTEGER,
-                        price REAL,
-                        available_seats INTEGER,
+                        arrival_time TEXT,
+                        duration TEXT,
+                        price TEXT,
+                        available_seats TEXT,
                         aircraft_type TEXT,
                         flight_class TEXT,
                         stopovers TEXT,
@@ -54,10 +54,30 @@ def add_flight(flight_data):
     cursor = connection.cursor()
 
     try:
+        flight_values = (
+            flight_data.flight_id,
+            flight_data.airline,
+            flight_data.flight_number,
+            flight_data.departure_airport,
+            flight_data.departure_city,
+            flight_data.departure_time,
+            flight_data.arrival_airport,
+            flight_data.arrival_city,
+            flight_data.arrival_time,
+            flight_data.duration,
+            flight_data.price,
+            flight_data.available_seats,
+            flight_data.aircraft_type,
+            flight_data.flight_class,
+            flight_data.stopovers,
+            flight_data.booking_info,
+            flight_data.images,
+        )
+
         cursor.execute('''
-            INSERT INTO Flights (airline, flight_number, departure_airport, departure_city, departure_time, arrival_airport, arrival_city, arrival_time, duration, price, available_seats, aircraft_type, flight_class, stopovers, booking_info, images)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', flight_data)
+                    INSERT INTO Flights (flight_id, airline, flight_number, departure_airport, departure_city, departure_time, arrival_airport, arrival_city, arrival_time, duration, price, available_seats, aircraft_type, flight_class, stopovers, booking_info, images)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ''', flight_values)
         connection.commit()
         print("Flight added successfully.")
     except sqlite3.Error as e:
@@ -85,11 +105,30 @@ def update_flight(flight_id, flight_data):
     cursor = connection.cursor()
 
     try:
+        flight_values = (
+            flight_data.flight_id,
+            flight_data.airline,
+            flight_data.flight_number,
+            flight_data.departure_airport,
+            flight_data.departure_city,
+            flight_data.departure_time,
+            flight_data.arrival_airport,
+            flight_data.arrival_city,
+            flight_data.arrival_time,
+            flight_data.duration,
+            flight_data.price,
+            flight_data.available_seats,
+            flight_data.aircraft_type,
+            flight_data.flight_class,
+            flight_data.stopovers,
+            flight_data.booking_info,
+            flight_data.images,
+        )
         cursor.execute('''
             UPDATE Flights
-            SET airline = ?, flight_number = ?, departure_airport = ?, departure_city = ?, departure_time = ?, arrival_airport = ?, arrival_city = ?, arrival_time = ?, duration = ?, price = ?, available_seats = ?, aircraft_type = ?, flight_class = ?, stopovers = ?, booking_info = ?, images = ?
+            SET flight_id = ?, airline = ?, flight_number = ?, departure_airport = ?, departure_city = ?, departure_time = ?, arrival_airport = ?, arrival_city = ?, arrival_time = ?, duration = ?, price = ?, available_seats = ?, aircraft_type = ?, flight_class = ?, stopovers = ?, booking_info = ?, images = ?
             WHERE flight_id = ?
-        ''', (*flight_data, flight_id))
+        ''', (*flight_values, flight_id))
         connection.commit()
         print("Flight updated successfully.")
     except sqlite3.Error as e:
@@ -97,7 +136,6 @@ def update_flight(flight_id, flight_data):
     finally:
         cursor.close()
         connection.close()
-
 def get_flight_by_flight_number(flight_number):
     connection = sqlite3.connect(DATABASE_NAME)
     cursor = connection.cursor()
