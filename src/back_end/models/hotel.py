@@ -11,7 +11,7 @@ class Hotel(BaseModel):
     contact_phone: str
     contact_email: str
     description: str
-    rating: int
+    rating: str
     checkin_time: str
     checkout_time: str
     amenities: str

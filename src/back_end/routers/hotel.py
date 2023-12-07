@@ -5,7 +5,7 @@ from src.back_end.models.hotel import Hotel
 from src.database.hotel_database.hotel_db import add_hotel,update_hotel_image_in_database, get_hotel_by_id, update_hotel, delete_hotel
 
 router = APIRouter(prefix="/hotels", tags=["Hotels"])
-IMAGES_DIRECTORY = "images/hotels_img"
+IMAGES_DIRECTORY = "src/images/hotels_img"
 @router.post("/")
 async def create_hotel(hotel: Hotel):
     try:
@@ -70,3 +70,14 @@ def save_uploaded_image(hotel_name: str,hotel_image: UploadFile):
     image_url = f"/{IMAGES_DIRECTORY}/{filename}"
     image_counter += 1
     return image_url
+
+@router.get("/")
+async def get_all_hotels():
+    try:
+        hotels = get_all_hotels()
+        if hotels:
+            return {"message": f"Hotels {hotels} fetched successfully"}
+        else:
+            raise HTTPException(status_code=404, detail="Hotels not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

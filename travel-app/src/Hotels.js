@@ -1,59 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import logoImage from "./images/logo0.png";
-import bbParis from "./images/B&B-Paris.png";
 
 const Hotels = () => {
-return (
-    <div>
-        <div className="header1">
-            <nav id="navbar" className="nav-white">
-                <Link to="/"><img src={logoImage} className="logo0" alt="Logo"/></Link>
-                <ul className="nav-links">
-                    <li><Link to="/Home">HOME</Link></li>
-                    <li><Link to="/Offers">OFFERS</Link></li>
-                    <li><Link to="/Orders">ORDERS</Link></li>
-                    <li><Link to="/Favorites">FAVORITES</Link></li>
-                    <li><Link to="/Account">ACCOUNT</Link></li>  
-                </ul>
-                <Link to="/Login" className="register-btn">Log In</Link>
-            </nav>
+    const [hotels, setHotels] = useState([]);
+
+    useEffect(() => {
+        const fetchHotels = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/docs#/Hotels');
+                if (Array.isArray(response.data)) {
+                    setHotels(response.data);
+                } else {
+                    console.error('Invalid data format received.');
+                }
+            } catch (error) {
+                console.error('Error fetching hotels:', error);
+            }
+        };
+
+        fetchHotels();
+    }, []);
+
+    return (
+        <div>
+            {/* ... (Your existing code) */}
             <div className="container">
                 <div className="list-container">
                     <div className="left-col">
                         <h1>Recommended places:</h1>
-                        <div className="hotels">
-                            <div className="hotels-img">
-                                <img src={bbParis} className="Paris" alt="Paris" />
-                            </div>
-                            <div className="hotels-info">
-                                <p>B&B HOTEL Paris Porte des Lilas</p>
-                                <h2>Superior Double Room</h2>
-                                <p>1 double bed / Air conditioning / Ensuite bathroom / Free WiFi</p>
-                                <i className="fa-solid fa-star"></i>
-                                <i className="fa-solid fa-star"></i>
-                                <i className="fa-solid fa-star"></i>
-                                <i className="fa-solid fa-star"></i>
-                                <i className="fa-regular fa-star-half-stroke"></i>
-                                <div className="hotels-price">
-                                    <p>2 Guests</p>
-                                    <h3>70$ / night</h3>
+                        {/* Check if hotels is an array before mapping */}
+                        {Array.isArray(hotels) && hotels.length > 0 ? (
+                            hotels.map((hotel, index) => (
+                                <div className="hotels" key={index}>
+                                    {/* Display hotel information */}
+                                    {/* Modify this section to display hotel details */}
+                                    <div className="hotels-img">
+                                        <img src={`/src/images/hotels_img/${hotel.images}`} className="hotel-img" alt={hotel.hotel_name} />
+                                    </div>
+                                    <div className="hotels-info">
+                                        <p>{hotel.hotel_name}</p>
+                                        {/* Display other hotel details */}
+                                        {/* Modify this section to display other hotel details */}
+                                        <h2>{hotel.room_types}</h2>
+                                        <p>{/* Other hotel details */}</p>
+                                        <div className="hotels-price">
+                                            {/*<p>{hotel.guests} Guests</p>*/}
+                                            <h3>{hotel.room_prices} / night</h3>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>    
+                            ))
+                        ) : (
+                            <p>No hotels found.</p>
+                        )}
                     </div>
                 </div>
-                <div className="right-col"></div>
-                <div className="footer">
-                    <a href="https://facebook.com/"><i className="fa-brands fa-facebook-f"></i></a>
-                    <a href="https://instagram.com/"><i className="fa-brands fa-instagram"></i></a>
-                    <hr />
-                    <p>Copyright © 2023, Trip Planner.</p>
-                </div>
+                {/* ... (Your existing code) */}
             </div>
-        </div>    
-    </div>
-);
+        </div>
+    );
 };
 
 export default Hotels;
