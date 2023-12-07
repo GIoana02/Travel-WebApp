@@ -48,3 +48,87 @@ def create_table():
     connection.close()
 
 create_table()
+
+def add_flight(flight_data):
+    connection = sqlite3.connect(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute('''
+            INSERT INTO Flights (airline, flight_number, departure_airport, departure_city, departure_time, arrival_airport, arrival_city, arrival_time, duration, price, available_seats, aircraft_type, flight_class, stopovers, booking_info, images)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', flight_data)
+        connection.commit()
+        print("Flight added successfully.")
+    except sqlite3.Error as e:
+        print("Error adding flight:", e)
+    finally:
+        cursor.close()
+        connection.close()
+
+def delete_flight(flight_id):
+    connection = sqlite3.connect(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute('DELETE FROM Flights WHERE flight_id = ?', (flight_id,))
+        connection.commit()
+        print("Flight deleted successfully.")
+    except sqlite3.Error as e:
+        print("Error deleting flight:", e)
+    finally:
+        cursor.close()
+        connection.close()
+
+def update_flight(flight_id, flight_data):
+    connection = sqlite3.connect(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute('''
+            UPDATE Flights
+            SET airline = ?, flight_number = ?, departure_airport = ?, departure_city = ?, departure_time = ?, arrival_airport = ?, arrival_city = ?, arrival_time = ?, duration = ?, price = ?, available_seats = ?, aircraft_type = ?, flight_class = ?, stopovers = ?, booking_info = ?, images = ?
+            WHERE flight_id = ?
+        ''', (*flight_data, flight_id))
+        connection.commit()
+        print("Flight updated successfully.")
+    except sqlite3.Error as e:
+        print("Error updating flight:", e)
+    finally:
+        cursor.close()
+        connection.close()
+
+def get_flight_by_flight_number(flight_number):
+    connection = sqlite3.connect(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute('SELECT * FROM Flights WHERE flight_number = ?', (flight_number,))
+        flight = cursor.fetchone()
+        if flight:
+            print("Flight found:", flight)
+        else:
+            print("Flight with flight number '{}' not found.".format(flight_number))
+    except sqlite3.Error as e:
+        print("Error fetching flight:", e)
+    finally:
+        cursor.close()
+        connection.close()
+
+def get_all_flights():
+    connection = sqlite3.connect(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute('SELECT * FROM Flights')
+        flights = cursor.fetchall()
+        if flights:
+            for flight in flights:
+                print(flight)
+        else:
+            print("No flights found.")
+    except sqlite3.Error as e:
+        print("Error fetching flights:", e)
+    finally:
+        cursor.close()
+        connection.close()

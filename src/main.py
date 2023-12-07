@@ -1,16 +1,18 @@
-from src.back_end.routers import login, frontend_images_routes, hotel, room, userAccount
+from src.back_end.routers import login, flight, admin_router, frontend_images_routes, hotel, room, userAccount
 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException, File, UploadFile
-from requests import request
 
 
 app = FastAPI()
+app.include_router(admin_router.router)
 app.include_router(login.router)
-app.include_router(hotel.router)
+app.include_router(hotel.hrouter)
 app.include_router(room.router)
+app.include_router(flight.router)
 app.include_router(userAccount.router)
 app.include_router(frontend_images_routes.router)
+
 
 origins = [
     "http://localhost:3000",

@@ -156,6 +156,21 @@ def delete_hotel(hotel_name):
     finally:
         connection.close()
 
+def get_all_hotels_admin():
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM Hotels")
+        print("Fetching hotels successful.")
+        hotels = cursor.fetchall()
+        return hotels
+    except sqlite3.Error as e:
+        print(f"Error fetching hotels: {e}")
+        return None
+    finally:
+        connection.close()
+
 def get_all_hotels():
     connection = create_connection(DATABASE_NAME)
     cursor = connection.cursor()

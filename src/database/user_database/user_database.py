@@ -24,7 +24,8 @@ def create_table():
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT NOT NULL,
                     email TEXT NULL,
-                    password TEXT NOT NULL
+                    password TEXT NOT NULL,
+                    role_user TEXT
                 )
             ''')
 
@@ -67,12 +68,12 @@ def create_table():
     connection.close()
 
 
-def add_user(username: str, email: str, password: str):
+def add_user(username: str, email: str, password: str, role: str):
     connection = create_connection()
     try:
         cursor = connection.cursor()
 
-        cursor.execute("INSERT INTO UserInfo (username, email, password) VALUES (?, ?, ?)", (username, email, password))
+        cursor.execute("INSERT INTO UserInfo (username, email, password, role_user) VALUES (?, ?, ?,?)", (username, email, password, role))
         connection.commit()
         print("User added successfully.")
     except sqlite3.Error as e:
@@ -84,17 +85,28 @@ def get_user_by_username(username: str):
     connection = create_connection()
     try:
         cursor = connection.cursor()
-
-        cursor.execute("SELECT id, password FROM UserInfo WHERE username = ?", (username,))
+        cursor.execute("SELECT id, username, password, role_user FROM UserInfo WHERE username = ?", (username,))
         print("User login successfully.")
-        return cursor.fetchone()
+        user_data = cursor.fetchone()
+
+        if user_data:
+            user_info = {
+                "id": user_data[0],
+                "username": user_data[1],
+                "password": user_data[2],
+                "role": user_data[3]
+            }
+            return user_info
+        else:
+            return None
     except sqlite3.Error as e:
         print(f"Error retrieving user: {e}")
-    connection.close()
+    finally:
+        connection.close()
 
 
 def get_user_info(email: str):
-    connection = create_connection(DATABASE_NAME)
+    connection = create_connection()
     cursor = connection.cursor()
 
     try:
@@ -112,7 +124,7 @@ def get_user_info(email: str):
 
 
 def get_previous_trips(email: str):
-    connection = create_connection(DATABASE_NAME)
+    connection = create_connection()
     cursor = connection.cursor()
 
     try:
@@ -130,7 +142,7 @@ def get_previous_trips(email: str):
 
 
 def get_favorite_flights(email: str):
-    connection = create_connection(DATABASE_NAME)
+    connection = create_connection()
     cursor = connection.cursor()
 
     try:
@@ -148,7 +160,7 @@ def get_favorite_flights(email: str):
 
 
 def get_favorite_hotels(email: str):
-    connection = create_connection(DATABASE_NAME)
+    connection = create_connection()
     cursor = connection.cursor()
 
     try:
@@ -165,7 +177,7 @@ def get_favorite_hotels(email: str):
         connection.close()
 
 def delete_favorite_flight(email: str, favorite_flight_id: int):
-    connection = create_connection(DATABASE_NAME)
+    connection = create_connection()
     cursor = connection.cursor()
 
     try:
@@ -180,7 +192,7 @@ def delete_favorite_flight(email: str, favorite_flight_id: int):
 
 # Function to delete favorite hotel for a user
 def delete_favorite_hotel(email: str, favorite_hotel_id: int):
-    connection = create_connection(DATABASE_NAME)
+    connection = create_connection()
     cursor = connection.cursor()
 
     try:
@@ -192,5 +204,15 @@ def delete_favorite_hotel(email: str, favorite_hotel_id: int):
         return False
     finally:
         connection.close()
+
+def update_user_role_to_admin(username):
+    connection = create_connection()
+    cursor = connection.cursor()
+    try:
+        # Update the role of the user with the given username to 'admin'
+        cursor.execute("UPDATE users SET role = ? WHERE username = ?", ("admin", username))
+        connection.commit()
+    except sqlite3.Error as e:
+        print(f"Error updating user role: {e}")
 
 create_table()
