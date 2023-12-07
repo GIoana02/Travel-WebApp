@@ -6,7 +6,7 @@ class Room(BaseModel):
     room_type: str
     capacity: int
     price: float
-    availability: str
+    availability: bool
     amenities: str
     description: str
     images: str

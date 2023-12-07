@@ -14,7 +14,7 @@ const DisplayImage = () => {
   const getImage = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`http://localhost:8000/images/display-image/${imageName}`, {
+      const response = await api.get(`/images/display-image/${imageName}`, {
         responseType: 'blob', // Set responseType to 'blob' to handle binary data
       });
 

@@ -84,6 +84,19 @@ def add_hotel(hotel):
     finally:
         connection.close()
 
+def update_hotel_image_in_database(hotel_name: str, image_url: str):
+    # Update the database with the new image URL
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+    cursor.execute('''
+        UPDATE Hotels
+        SET images = ?
+        WHERE hotel_name = ?
+    ''', (image_url, hotel_name))
+    connection.commit()
+
+    print("Hotel image URL updated in the database.")
+
 
 def get_hotel_by_id(hotel_name):
     connection = create_connection(DATABASE_NAME)

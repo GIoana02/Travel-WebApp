@@ -45,3 +45,4 @@ async def delete_room_entry(room_id: int):
             raise HTTPException(status_code=404, detail="Room not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
