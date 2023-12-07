@@ -69,7 +69,7 @@ const Login = () => {
             onChange={handleInputChange} // Connect onChange to update state
           />
           <input type="submit" className="btn" value="Login" />
-          <Link to="/">Forgot password</Link>
+          <Link to="/">Forgot password</Link><br/>
           <Link to="/Register">Don't have an account? Register here.</Link>
         </form>
       </div>

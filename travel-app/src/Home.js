@@ -1,13 +1,58 @@
-import React from "react";
+import {
+    faBed,
+    faCalendarDays,
+    faCar,
+    faPerson,
+    faPlane,
+    faTaxi,
+  } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import "./headerSearch.css";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import {React, useState} from "react";
 import logoImage from "./images/logo0.png";
-import searchImg from "./images/search1.jpeg";
 import hotelImg from "./images/hotel.png";
 import flightImg from "./images/flights.png";
 import fhImg from "./images/f&h.jpeg";
 import "./App.css";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
 
 const Home = () => {
+    const [destination, setDestination] = useState("");
+  const [openDate, setOpenDate] = useState(false);
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  const [openOptions, setOpenOptions] = useState(false);
+  const [options, setOptions] = useState({
+    adult: 1,
+    children: 0,
+    room: 1,
+  });
+
+  const navigate = useNavigate();
+
+  const handleOption = (name, operation) => {
+    setOptions((prev) => {
+      return {
+        ...prev,
+        [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
+      };
+    });
+  };
+
+  const handleSearch = () => {
+    navigate("/hotels", { state: { destination, date, options } });
+  };
+
 return (
     <div>
       <div className="header">
@@ -25,33 +70,117 @@ return (
           <div className="container">
               <div className="text-box">
                   <h1>Let us be your guide to an unforgettable vacation!</h1>
-                  <div className="search-bar">
-                      <form>
-                          <div className="location-input">
-                              <label>Location</label>
-                              <input type="text" placeholder="Choose destination:"/>
-                          </div>
-                          <div>
-                              <label>Check In</label>
-                              <input type="text" placeholder="From:"/>
-                          </div>
-                          <div>
-                              <label>Check Out</label>
-                              <input type="text" placeholder="To:"/>
-                          </div>
-                          <div>
-                              <label>Guests</label>
-                              <input type="text" placeholder="No. of Guests:"/>
-                          </div>
-                          <button type="submit"><img src={searchImg} className="search1" alt="Search"/></button>
-                      </form>
+                  <div className="headerSearch">
+              <div className="headerSearchItem">
+                <FontAwesomeIcon icon={faBed} className="headerIcon" />
+                <input
+                  type="text"
+                  placeholder="Where are you going?"
+                  className="headerSearchInput"
+                  onChange={(e) => setDestination(e.target.value)}
+                />
+              </div>
+              <div className="headerSearchItem">
+                <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+                <span
+                  onClick={() => setOpenDate(!openDate)}
+                  className="headerSearchText"
+                >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+                  date[0].endDate,
+                  "MM/dd/yyyy"
+                )}`}</span>
+                {openDate && (
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => setDate([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={date}
+                    className="date"
+                    minDate={new Date()}
+                  />
+                )}
+              </div>
+              <div className="headerSearchItem">
+                <FontAwesomeIcon icon={faPerson} className="headerIcon" />
+                <span
+                  onClick={() => setOpenOptions(!openOptions)}
+                  className="headerSearchText"
+                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+                {openOptions && (
+                  <div className="options">
+                    <div className="optionItem">
+                      <span className="optionText">Adult</span>
+                      <div className="optionCounter">
+                        <button
+                          disabled={options.adult <= 1}
+                          className="optionCounterButton"
+                          onClick={() => handleOption("adult", "d")}
+                        >
+                          -
+                        </button>
+                        <span className="optionCounterNumber">
+                          {options.adult}
+                        </span>
+                        <button
+                          className="optionCounterButton"
+                          onClick={() => handleOption("adult", "i")}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="optionItem">
+                      <span className="optionText">Children</span>
+                      <div className="optionCounter">
+                        <button
+                          disabled={options.children <= 0}
+                          className="optionCounterButton"
+                          onClick={() => handleOption("children", "d")}
+                        >
+                          -
+                        </button>
+                        <span className="optionCounterNumber">
+                          {options.children}
+                        </span>
+                        <button
+                          className="optionCounterButton"
+                          onClick={() => handleOption("children", "i")}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="optionItem">
+                      <span className="optionText">Room</span>
+                      <div className="optionCounter">
+                        <button
+                          disabled={options.room <= 1}
+                          className="optionCounterButton"
+                          onClick={() => handleOption("room", "d")}
+                        >
+                          -
+                        </button>
+                        <span className="optionCounterNumber">
+                          {options.room}
+                        </span>
+                        <button
+                          className="optionCounterButton"
+                          onClick={() => handleOption("room", "i")}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
                   </div>
-              </div>    
-              
-          </div>
-      </div>
-      
-    
+                )}
+              </div>
+              <div className="headerSearchItem">
+                <button className="headerBtn" onClick={handleSearch}>
+                  Search
+                </button>
+              </div>
+            </div>
+        </div>
       <div className="bookings">
           <h1>Recommended Hotels & Flights</h1>
           <p>Don't miss your chance. Choose the one that suits you best!</p>
@@ -81,6 +210,8 @@ return (
               </span>
             </div>
         </div>
+        </div>
+    </div>
     </div>
 
   
