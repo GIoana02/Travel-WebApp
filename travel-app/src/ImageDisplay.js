@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-
+import api from './api'
 const ImageDisplay = ({ imageName }) => {
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await fetch(`/images/display-image/${imageName}`);
+        const response = await api.get(`/images/display-image/${imageName}`);
         if (response.ok) {
           const blob = await response.blob();
           setImageUrl(URL.createObjectURL(blob));

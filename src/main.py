@@ -1,7 +1,7 @@
-from src.back_end.routers import login, images_routes, hotel, room, userAccount
+from src.back_end.routers import login, frontend_images_routes, hotel, room, userAccount
 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, HTTPException, File
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from requests import request
 
 
@@ -10,7 +10,7 @@ app.include_router(login.router)
 app.include_router(hotel.router)
 app.include_router(room.router)
 app.include_router(userAccount.router)
-app.include_router(images_routes.router)
+app.include_router(frontend_images_routes.router)
 
 origins = [
     "http://localhost:3000",
@@ -24,5 +24,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 @app.post("/upload")
-async def receiveFile(file: bytes = File(...)):
-    print(file)
+async def receiveFile(file: UploadFile = File(...)):
+    contents = await file.read()
+    # Handle the file contents here (save it, process it, etc.)
+    # For example:
+    print(contents)
+    return {"filename": file.filename}

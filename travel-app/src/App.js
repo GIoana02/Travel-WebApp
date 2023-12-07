@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import React, {useState} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from "./Login"; // Import your login page component
 import Register from "./Register"; // Import your registration page component

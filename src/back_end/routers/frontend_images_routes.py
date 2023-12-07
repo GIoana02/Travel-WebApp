@@ -8,7 +8,7 @@ from src.database.image_database.image_db import get_image_url_by_name, add_imag
 router = APIRouter(prefix="/images", tags=["Images"])
 
 IMAGES_DIRECTORY = "images"
-@router.post("/upload-image/")
+@router.post("/upload-image")
 async def upload_image(image: UploadFile = File(...), name: str = None):
     if not os.path.exists(IMAGES_DIRECTORY):
         os.makedirs(IMAGES_DIRECTORY)
@@ -24,7 +24,6 @@ async def upload_image(image: UploadFile = File(...), name: str = None):
 
     # Save image information to the database
     add_image_info(name, image_url)
-
     return {"message": "Image uploaded successfully", "url": image_url}
 
 
