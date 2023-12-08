@@ -84,14 +84,30 @@ def add_hotel(hotel):
     finally:
         connection.close()
 
+def update_hotel_image_in_database(hotel_name: str, image_url: str):
+    # Update the database with the new image URL
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+    cursor.execute('''
+        UPDATE Hotels
+        SET images = ?
+        WHERE hotel_name = ?
+    ''', (image_url, hotel_name))
+    connection.commit()
+
+    print("Hotel image URL updated in the database.")
+
 
 def get_hotel_by_id(hotel_name):
     connection = create_connection(DATABASE_NAME)
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM Hotels WHERE hotel_name=?", (hotel_name,))
+    cursor.execute('''SELECT hotel_name, location_city, location_state, location_country,
+                address, contact_phone, contact_email, description, rating,
+                checkin_time, checkout_time, amenities, room_types, room_prices,
+                images, availability, booking_info, reviews FROM Hotels WHERE hotel_name=?''', (hotel_name,))
     hotel = cursor.fetchone()
-
+    print(f"{hotel}")
     connection.close()
     return hotel
 
@@ -140,5 +156,36 @@ def delete_hotel(hotel_name):
     except sqlite3.Error as e:
         print(f"Error deleting hotel: {e}")
         return False
+    finally:
+        connection.close()
+
+def get_all_hotels_admin():
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM Hotels")
+        print("Fetching hotels successful.")
+        hotels = cursor.fetchall()
+        return hotels
+    except sqlite3.Error as e:
+        print(f"Error fetching hotels: {e}")
+        return None
+    finally:
+        connection.close()
+
+def get_all_hotels():
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(
+            "SELECT hotel_name, location_city, location_country, address, description, rating, room_prices FROM Hotels")
+        print("Fetching hotels successful.")
+        hotels = cursor.fetchall()
+        return hotels
+    except sqlite3.Error as e:
+        print(f"Error fetching hotels: {e}")
+        return None
     finally:
         connection.close()

@@ -123,3 +123,27 @@ def delete_room(room_id):
         return False
     finally:
         connection.close()
+
+def update_room_availability(room_id: int, availability: bool):
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+    cursor.execute('''
+        UPDATE Rooms
+        SET availability = ?
+        WHERE room_id = ?
+    ''', (availability, room_id))
+    connection.commit()
+    print("Room availability updated successfully.")
+
+def update_room_image_in_database(room_number: str, image_url: str):
+    # Update the database with the new image URL
+    connection = create_connection(DATABASE_NAME)
+    cursor = connection.cursor()
+    cursor.execute('''
+        UPDATE Rooms
+        SET images = ?
+        WHERE room_number = ?
+    ''', (image_url, room_number))
+    connection.commit()
+
+    print("Room image URL updated in the database.")
