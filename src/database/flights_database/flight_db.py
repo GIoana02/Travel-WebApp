@@ -55,7 +55,6 @@ def add_flight(flight_data):
 
     try:
         flight_values = (
-            flight_data.flight_id,
             flight_data.airline,
             flight_data.flight_number,
             flight_data.departure_airport,
@@ -75,8 +74,8 @@ def add_flight(flight_data):
         )
 
         cursor.execute('''
-                    INSERT INTO Flights (flight_id, airline, flight_number, departure_airport, departure_city, departure_time, arrival_airport, arrival_city, arrival_time, duration, price, available_seats, aircraft_type, flight_class, stopovers, booking_info, images)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO Flights (airline, flight_number, departure_airport, departure_city, departure_time, arrival_airport, arrival_city, arrival_time, duration, price, available_seats, aircraft_type, flight_class, stopovers, booking_info, images)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ''', flight_values)
         connection.commit()
         print("Flight added successfully.")
@@ -91,6 +90,7 @@ def delete_flight(flight_id):
     cursor = connection.cursor()
 
     try:
+
         cursor.execute('DELETE FROM Flights WHERE flight_id = ?', (flight_id,))
         connection.commit()
         print("Flight deleted successfully.")
@@ -136,6 +136,7 @@ def update_flight(flight_id, flight_data):
     finally:
         cursor.close()
         connection.close()
+
 def get_flight_by_flight_number(flight_number):
     connection = sqlite3.connect(DATABASE_NAME)
     cursor = connection.cursor()
@@ -145,28 +146,30 @@ def get_flight_by_flight_number(flight_number):
         flight = cursor.fetchone()
         if flight:
             print("Flight found:", flight)
+            return flight  # Return the flight data when found
         else:
             print("Flight with flight number '{}' not found.".format(flight_number))
+            return None  # Return None if flight not found
     except sqlite3.Error as e:
         print("Error fetching flight:", e)
+        return None  # Return None in case of error
     finally:
         cursor.close()
         connection.close()
 
+
 def get_all_flights():
     connection = sqlite3.connect(DATABASE_NAME)
     cursor = connection.cursor()
+    flights = []
 
     try:
         cursor.execute('SELECT * FROM Flights')
         flights = cursor.fetchall()
-        if flights:
-            for flight in flights:
-                print(flight)
-        else:
-            print("No flights found.")
     except sqlite3.Error as e:
         print("Error fetching flights:", e)
     finally:
         cursor.close()
         connection.close()
+
+    return flights

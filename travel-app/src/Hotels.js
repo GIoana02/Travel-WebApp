@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "./images/logo0.png";
 import api from "./api";
 
 const Hotels = () => {
     const [hotels, setHotels] = useState([]);
+     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchHotels = async () => {
             try {
-                const response = await api.get('/hotels');
+                const response = await api.get('/hotels/');  // Or use '/hotels' if the endpoint is different
                 if (Array.isArray(response.data)) {
                     setHotels(response.data);
                 } else {
@@ -23,6 +24,11 @@ const Hotels = () => {
 
         fetchHotels();
     }, []);
+
+    const handleHotelClick = (hotelName) => {
+        // Redirect to a specific hotel page using hotel name
+        navigate(`/hotels/${hotelName}`);
+    };
 
     return (
         <div>
@@ -55,17 +61,15 @@ const Hotels = () => {
                         </thead>
                         <tbody>
                             {hotels.map((hotel, index) => (
-                                <tr key={index}>
-                                    <td>{hotel.hotel_name}</td>
-                                    <td>{hotel.location_city}</td>
-                                    <td>{hotel.location_country}</td>
-                                    <td>{hotel.address}</td>
-                                    <td>{hotel.description}</td>
-                                    <td>{hotel.rating}</td>
-                                    <td>{hotel.room_prices}</td>
-                                    {/* Add column for image */}
-                                   
-                                    {/* Include other table cells for specific fields */}
+                                 <tr key={index} onClick={() => handleHotelClick(hotel[0])}>
+                                    <td>{hotel[0]}</td>
+                                    <td>{hotel[1]}</td>
+                                    <td>{hotel[2]}</td>
+                                    <td>{hotel[3]}</td>
+                                    <td>{hotel[4]}</td>
+                                    <td>{hotel[5]}</td>
+                                    <td>{hotel[6]}</td>
+                                    {/* Access other properties in a similar way */}
                                 </tr>
                             ))}
                         </tbody>

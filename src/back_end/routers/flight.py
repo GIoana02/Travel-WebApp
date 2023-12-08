@@ -6,12 +6,16 @@ from src.database.flights_database.flight_db import update_flight, add_flight, g
 router = APIRouter(prefix="/flights", tags=["Flights"])
 
 
-@router.get('/get_flight_by_flight_number/{flight_number}')
+@router.get('/flight_by_flight_number/{flight_number}')
 async def get_flight_by_flight_number_endpoint(flight_number: str):
-    get_flight_by_flight_number(flight_number)
-    return {"message": f"Getting flight with flight number {flight_number}"}
+    flight = get_flight_by_flight_number(flight_number)
+    print (f"Getting flight with flight number {flight_number}")
+    return flight
 
-@router.get('/get_all_flights/')
+@router.get('/get_list_flights/')
 async def get_all_flights_endpoint():
-    get_all_flights()
-    return {"message": "Getting all flights"}
+    flights = get_all_flights()
+    if flights:
+        return flights
+    else:
+        return []

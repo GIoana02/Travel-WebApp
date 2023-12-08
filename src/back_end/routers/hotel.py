@@ -1,10 +1,10 @@
 from typing import List
 from fastapi import APIRouter, HTTPException, UploadFile, Form, File
-from src.database.hotel_database.hotel_db import get_all_hotels_admin, get_hotel_by_id
+from src.database.hotel_database.hotel_db import get_all_hotels, get_hotel_by_id
 
 hrouter = APIRouter(prefix="/hotels", tags=["Hotels"])
 
-@hrouter.get("/{hotel_id}")
+@hrouter.get("/{hotel_name}")
 async def get_hotel(hotel_name: str):
     hotel = get_hotel_by_id(hotel_name)
     if hotel:
@@ -14,6 +14,6 @@ async def get_hotel(hotel_name: str):
 
 @hrouter.get("/")
 def admin_fetch_all_hotels() -> List[tuple]:
-    hotels = get_all_hotels_admin()
+    hotels = get_all_hotels()
     return hotels if hotels else []
 

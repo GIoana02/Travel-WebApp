@@ -18,19 +18,25 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await api.post('/user/login', loginData);
-      if (response.status === 200) {
-        console.log(response.data.message)
-        navigate('/Home');
-      } else {
-        console.error('Login failed');
-      }
-    } catch (error) {
-      console.error('Error:', error);
+  e.preventDefault();
+  try {
+    const formData = new URLSearchParams(); // Create form data object
+    formData.append('username', loginData.username);
+    formData.append('password', loginData.password);
+
+    const response = await api.post('/user/login', formData);
+
+    if (response.status === 200) {
+      const token = response.data.access_token;
+      localStorage.setItem('token', token);
+      navigate('/Home');
+    } else {
+      console.error('Login failed');
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
   return (
   <div>
@@ -40,7 +46,7 @@ const Login = () => {
             <li><Link to="/">HOME</Link></li>
             <li><Link to="/Offers">OFFERS</Link></li>
             <li><Link to="/Orders">ORDERS</Link></li>
-            <li><Link to="/Flights">FLIGHTS</Link></li>
+            <li><Link to="/Favorites">FAVORITES</Link></li>
             <li><Link to="/Account">ACCOUNT</Link></li>
           </ul>
           <Link to="/Login" className="register-btn">Log In</Link>

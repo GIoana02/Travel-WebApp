@@ -2,7 +2,7 @@ import os
 import sqlite3
 import os
 
-DATABASE_NAME = "src/database/user_database/user.db"
+DATABASE_NAME = "src/database/user_database/User.db"
 
 def create_connection():
     try:
@@ -88,7 +88,6 @@ def get_user_by_username(username: str):
         cursor.execute("SELECT id, username, password, role_user FROM UserInfo WHERE username = ?", (username,))
         print("User login successfully.")
         user_data = cursor.fetchone()
-
         if user_data:
             user_info = {
                 "id": user_data[0],
@@ -96,6 +95,7 @@ def get_user_by_username(username: str):
                 "password": user_data[2],
                 "role": user_data[3]
             }
+            print(user_info)
             return user_info
         else:
             return None

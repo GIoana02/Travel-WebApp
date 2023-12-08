@@ -3,7 +3,7 @@ from typing import List
 
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 
-from src.back_end.models.flight import Flight
+from src.back_end.models.flight import Flight, FlightData
 from src.back_end.models.hotel import Hotel
 from src.back_end.models.room import Room
 from src.database.flights_database.flight_db import add_flight, delete_flight, update_flight, \
@@ -23,7 +23,6 @@ async def create_room(room: Room):
         return {"message": "Room added successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
 @router.post("/upload-room-image/")
 async def upload_image(image: UploadFile = File(...), room_number: str = Form(...)):
     image_url = save_uploaded_image(room_number, image)
@@ -134,7 +133,7 @@ def save_uploaded_image(hotel_name: str,hotel_image: UploadFile):
     return image_url
 
 @router.post('/add_flight/')
-async def add_flight_endpoint(flight: Flight):
+async def add_flight_endpoint(flight: FlightData):
     create_table()
     add_flight(flight)
     return {"message": "Flight added successfully"}
@@ -145,7 +144,7 @@ async def delete_flight_endpoint(flight_id: int):
     return {"message": "Flight deleted successfully"}
 
 @router.put('/update_flight/{flight_id}')
-async def update_flight_endpoint(flight_id: int, flight: Flight):
+async def update_flight_endpoint(flight_id: int, flight: FlightData):
     update_flight(flight_id, flight)
     return {"message": "Flight updated successfully"}
 
@@ -156,5 +155,6 @@ async def get_flight_by_flight_number_endpoint(flight_number: str):
 
 @router.get('/get_all_flights/')
 async def get_all_flights_endpoint():
-    get_all_flights()
-    return {"message": "Getting all flights"}
+    all_flights = get_all_flights()
+    print(f"Getting all flights ")
+    return all_flights

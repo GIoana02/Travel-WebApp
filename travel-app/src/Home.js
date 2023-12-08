@@ -52,7 +52,6 @@ const Home = () => {
   const handleSearch = () => {
     navigate("/hotels", { state: { destination, date, options } });
   };
-
 return (
     <div>
       <div className="header">
@@ -62,7 +61,7 @@ return (
                   <li><Link to="/">HOME</Link></li>
                   <li><Link to="/Offers">OFFERS</Link></li>
                   <li><Link to="/Orders">ORDERS</Link></li>
-                  <li><Link to="/Flights">FLIGHTS</Link></li>
+                  <li><Link to="/Favorites">FAVORITES</Link></li>
                   <li><Link to="/Account">ACCOUNT</Link></li>  
               </ul>
               <Link to="/Login" className="register-btn">Log In</Link>

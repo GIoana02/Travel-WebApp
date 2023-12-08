@@ -300,7 +300,7 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
   }
-  
+
   /* Style for table headers */
   th {
     background-color: #f2f2f2;
@@ -308,24 +308,24 @@ table {
     padding: 8px;
     text-align: left;
   }
-  
+
   /* Alternate row colors for better readability */
   tbody tr:nth-child(even) {
     background-color: #f9f9f9;
   }
-  
+
   /* Style for table cells */
   td {
     border: 1px solid #dddddd;
     padding: 8px;
   }
-  
+
   /* Hover effect on table rows */
   tbody tr:hover {
     background-color: #e2e2e2;
     cursor: pointer;
   }
-  
+
 .left-col{
     flex-basis: 70%;
 }
@@ -443,4 +443,81 @@ form input{
     background: #1f7cee;
     height: 3px;
     margin-top: 8px;
+}
+/*-------flights_page*/
+.action-navbar .flights-navbar li a{
+    color: #000;
+}
+.action-navbar {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: 1cm;
+    margin-top: 0.2cm;
+    margin-bottom: 1cm;
+    margin-right: 4cm;
+    margin-left: 4cm;
+}
+
+.flights-navbar li{
+    text-align: center;
+    list-style: none;
+    display: inline-block;
+    margin: 10px 20px;
+    margin-top: 0.7cm;
+    margin-left: 2px;
+}
+.flights-navbar li a {
+    text-indent: 30px;
+    color: #000;
+    text-decoration: none;
+    font-size: 13px;
+}
+.flights-navbar li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #1f7cee;
+    display: block;
+    transition: 0.5s;
+}
+.flights-navbar li:hover::after{
+    width: 100%;
+}
+
+.fligths_form{
+    text-indent: 30px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-right: 10cm;
+    margin-left: 10cm;
+}
+
+.label{
+    color: #1f7cee;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.text_box{
+    margin-left: 8.2cm;
+    width: 25%;
+}
+.flights_submit_button{
+    margin-left: 1.2cm;
+    width: 10%;
+}
+
+.flights-overlay{
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: 1cm;
+    margin: auto;
+}
+.flights-list{
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: 1cm;
+    margin: auto;
 }
