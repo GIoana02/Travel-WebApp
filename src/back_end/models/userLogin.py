@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field
 
 
 class UserRegister(BaseModel):
-    user_id: int
     username: str
     email: str
     password: str

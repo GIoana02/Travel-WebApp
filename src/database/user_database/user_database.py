@@ -2,7 +2,7 @@ import os
 import sqlite3
 import os
 
-DATABASE_NAME = "src/database/user_database/User.db"
+DATABASE_NAME = "src/database/user_database/user"
 
 def create_connection():
     try:
