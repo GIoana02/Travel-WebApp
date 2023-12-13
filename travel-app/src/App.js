@@ -14,6 +14,7 @@ import AdminFlights from "./AdminFlights";
 import Flights from "./Flights";
 import HotelDetail from "./HotelDetail";
 import FlightDetail from "./FlightDetail";
+import AdminPannel from "./AdminPannel";
 
 const App = () => {
   const handleLogin = () => {
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/AdminFlights" element={<AdminFlights />} />
         <Route path="/hotels/:hotel_name" element={<HotelDetail/>} />
         <Route path="/flight/:flight_number" element={<FlightDetail/>} />
+        <Route path="/AdminPannel" element={<AdminPannel/>} />
         {/* Add more routes for other pages */}
       </Routes>
     </div>
