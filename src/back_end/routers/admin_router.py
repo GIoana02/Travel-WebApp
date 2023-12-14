@@ -138,10 +138,13 @@ async def add_flight_endpoint(flight: FlightData):
     add_flight(flight)
     return {"message": "Flight added successfully"}
 
-@router.delete('/delete_flight/{flight_id}')
-async def delete_flight_endpoint(flight_id: int):
-    delete_flight(flight_id)
-    return {"message": "Flight deleted successfully"}
+@router.delete('/delete_flight/{flight_number}')
+async def delete_flight_endpoint(flight_number: str):
+    try:
+        delete_flight(flight_number)
+        return {"message": "Flight deleted successfully"}
+    except Exception as e:
+        return {"error": str(e)}, 400
 
 @router.put('/update_flight/{flight_id}')
 async def update_flight_endpoint(flight_id: int, flight: FlightData):

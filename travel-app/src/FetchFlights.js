@@ -1,6 +1,9 @@
 import api from './api';
 
-const fetchFlightsData = async () => {
+const fetchFlightsData = async (shouldFetch = true) => {
+  if (!shouldFetch) {
+    return [];
+  }
   try {
     const token = localStorage.getItem('token');
     const headers = {

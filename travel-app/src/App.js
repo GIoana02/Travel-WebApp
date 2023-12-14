@@ -9,12 +9,12 @@ import Orders from './Orders';
 import Account from './Account';
 import ImageComponent from './ImageSelector';
 import AddImg from './AddImg';
-import CheckAdminPage from "./AdminSmth";
 import AdminFlights from "./AdminFlights";
 import Flights from "./Flights";
 import HotelDetail from "./HotelDetail";
 import FlightDetail from "./FlightDetail";
 import AdminPannel from "./AdminPannel";
+import DeleteFlight from "./DeleteFlight";
 
 const App = () => {
   const handleLogin = () => {
@@ -36,11 +36,11 @@ const App = () => {
         <Route path="/Account" element={<Account />} />
         <Route path="/AddImg" element={<AddImg />} />
         <Route path="/SelectImage" element={<ImageComponent />} />
-        <Route path="/check-admin" element={<CheckAdminPage />} />
         <Route path="/AdminFlights" element={<AdminFlights />} />
         <Route path="/hotels/:hotel_name" element={<HotelDetail/>} />
         <Route path="/flight/:flight_number" element={<FlightDetail/>} />
         <Route path="/AdminPannel" element={<AdminPannel/>} />
+        <Route path="/DeleteFLights" element={<DeleteFlight/>}/>
         {/* Add more routes for other pages */}
       </Routes>
     </div>

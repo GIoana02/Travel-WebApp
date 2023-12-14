@@ -4,6 +4,9 @@ import api from "./api";
 import logoImage from "./images/logo0.png"; // Assuming React Router is being used
 import useAdminCheck from "./CheckAdmin";
 import fetchFlightsData from './FetchFlights';
+import DeleteFlight from './DeleteFlight';
+import FetchFlights from "./FetchFlights";
+
 function AdminFlights() {
   const isAdmin = useAdminCheck();
   const [flightsData, setFlightsData] = useState([]);
@@ -29,16 +32,28 @@ function AdminFlights() {
   });
   const [showFlightsOverlay, setShowFlightsOverlay] = useState(false);
   const [showFlightForm, setShowFlightForm] = useState(false);
-
+  const [showDeleteFlight, setShowDeleteFlight] = useState(false);
+  const [showFlightsList, setShowFlightsList] = useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFlight({ ...flight, [name]: value });
   };
 
-  const handleAddFlights = async () => {
-    setShowFlightForm(true);
-    setShowFlightsOverlay(false);
-  };
+  const handleAddFlights = () => {
+  setShowFlightForm(true);
+  setShowDeleteFlight(false);
+  setShowFlightsList(false);
+};
+
+  const handleToggleDeleteFlight = () => {
+  const isShowing = !showDeleteFlight;
+  setShowDeleteFlight(isShowing);
+  if (isShowing) {
+    setShowFlightForm(false);
+    setShowFlightsList(false);
+  }
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,20 +76,22 @@ function AdminFlights() {
   };
 
   const handleSeeFlights = async () => {
+  if (!showFlightsList) {
     setLoading(true);
     try {
-      const data = await fetchFlightsData(); // Call the fetchFlightsData function from the separate file
+      const data = await fetchFlightsData();
       setFlightsData(data);
       setLoading(false);
     } catch (error) {
       setError(error);
       setLoading(false);
     }
-  };
+  }
+  setShowFlightsList(!showFlightsList);
+  setShowDeleteFlight(false);
+  setShowFlightForm(false);
+};
 
-  useEffect(() => {
-    handleSeeFlights(); // Invoke the function to fetch data when component mounts
-  }, []);
 
 
   return (
@@ -99,7 +116,7 @@ function AdminFlights() {
                     </button>
                   </li>
                   <li>
-                    <button className="adminFlightsButton" >
+                    <button className="adminFlightsButton" onClick={handleToggleDeleteFlight}>
                       <span className="buttonFlightsText">Delete Flights</span>
                     </button>
                   </li>
@@ -110,10 +127,10 @@ function AdminFlights() {
                   </li>
               </ul>
             </nav>
-
+              {showDeleteFlight && <DeleteFlight />}
               {showFlightsOverlay}
       <div className="flight-container">
-        {showFlightForm ? (
+        {showFlightForm && (
         <div className="form-wrapper">
         <div className="fligths-form">
               <form id="AddFlightForm" className="fligths_form" onSubmit={handleSubmit}>
@@ -314,11 +331,8 @@ function AdminFlights() {
           </form>
         </div>
             </div>
-        ): loading ? (
-            <p>Loading flights...</p>
-          ) : error ? (
-            <p>Error fetching flights: {error.message}</p>
-          ) : flightsData.length > 0 ? (
+        )}
+        {showFlightsList && !showDeleteFlight && flightsData.length > 0 && (
             <div className="flights-table">
               <table className="flights-table">
                 <thead>
@@ -353,9 +367,10 @@ function AdminFlights() {
               </tbody>
             </table>
           </div>
-          ) : (
-            <p>No flights available</p>
           )}
+        {!loading && !error && showFlightsList && !showDeleteFlight && flightsData.length === 0 && (
+        <p>No flights available</p>
+      )}
         </div>
       </div>
     </div>
