@@ -61,6 +61,16 @@ def add_hotel(hotel):
     cursor = connection.cursor()
 
     try:
+        hotel_values = (
+            hotel.hotel_name, hotel.location_city, hotel.location_state,
+            hotel.location_country, hotel.address, hotel.contact_phone,
+            hotel.contact_email, hotel.description, hotel.rating,
+            hotel.checkin_time, hotel.checkout_time, hotel.amenities,
+            hotel.room_types, hotel.room_prices, hotel.images,
+            hotel.availability, hotel.booking_info, hotel.reviews
+        
+        )
+
         cursor.execute('''
             INSERT INTO Hotels (
                 hotel_name, location_city, location_state, location_country,
@@ -68,20 +78,14 @@ def add_hotel(hotel):
                 checkin_time, checkout_time, amenities, room_types, room_prices,
                 images, availability, booking_info, reviews
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (
-            hotel.hotel_name, hotel.location_city, hotel.location_state,
-            hotel.location_country, hotel.address, hotel.contact_phone,
-            hotel.contact_email, hotel.description, hotel.rating,
-            hotel.checkin_time, hotel.checkout_time, hotel.amenities,
-            hotel.room_types, hotel.room_prices, hotel.images,
-            hotel.availability, hotel.booking_info, hotel.reviews
-        ))
+        ''', hotel_values)
 
         connection.commit()
         print("Hotel added successfully.")
     except sqlite3.Error as e:
         print(f"Error adding hotel: {e}")
     finally:
+        cursor.close()
         connection.close()
 
 def update_hotel_image_in_database(hotel_name: str, image_url: str):
@@ -101,16 +105,24 @@ def update_hotel_image_in_database(hotel_name: str, image_url: str):
 def get_hotel_by_id(hotel_name):
     connection = create_connection(DATABASE_NAME)
     cursor = connection.cursor()
-
-    cursor.execute('''SELECT hotel_name, location_city, location_state, location_country,
-                address, contact_phone, contact_email, description, rating,
-                checkin_time, checkout_time, amenities, room_types, room_prices,
-                images, availability, booking_info, reviews FROM Hotels WHERE hotel_name=?''', (hotel_name,))
-    hotel = cursor.fetchone()
-    print(f"{hotel}")
-    connection.close()
-    return hotel
-
+    try:
+        cursor.execute('''SELECT hotel_name, location_city, location_state, location_country,
+                    address, contact_phone, contact_email, description, rating,
+                    checkin_time, checkout_time, amenities, room_types, room_prices,
+                    images, availability, booking_info, reviews FROM Hotels WHERE hotel_name=?''', (hotel_name,))
+        hotel = cursor.fetchone()
+        if hotel:
+            print("Hotel found:",hotel)
+            return hotel
+        else:
+            print("Hotel with hotel id '{}' not found.".format(hotel_name))
+            return None
+    except sqlite3.Error as e:
+        print("Error fetching flight:", e)
+        return None  # Return None in case of error
+    finally:
+        cursor.close()
+        connection.close()
 
 def update_hotel(hotel_name, new_hotel_data):
     connection = create_connection(DATABASE_NAME)
@@ -157,35 +169,38 @@ def delete_hotel(hotel_name):
         print(f"Error deleting hotel: {e}")
         return False
     finally:
+        cursor.close()
         connection.close()
 
 def get_all_hotels_admin():
     connection = create_connection(DATABASE_NAME)
     cursor = connection.cursor()
-
+    hotels = []
     try:
         cursor.execute("SELECT * FROM Hotels")
-        print("Fetching hotels successful.")
+        #print("Fetching hotels successful.")
         hotels = cursor.fetchall()
-        return hotels
+        #return hotels
     except sqlite3.Error as e:
         print(f"Error fetching hotels: {e}")
         return None
     finally:
+        cursor.close()
         connection.close()
 
 def get_all_hotels():
     connection = create_connection(DATABASE_NAME)
     cursor = connection.cursor()
-
+    hotels = []
     try:
-        cursor.execute(
-            "SELECT hotel_name, location_city, location_country, address, description, rating, room_prices FROM Hotels")
-        print("Fetching hotels successful.")
+        cursor.execute("SELECT * FROM Hotels")
+        #print("Fetching hotels successful.")
         hotels = cursor.fetchall()
-        return hotels
+        #return hotels
     except sqlite3.Error as e:
         print(f"Error fetching hotels: {e}")
         return None
     finally:
+        cursor.close()
         connection.close()
+    return hotels

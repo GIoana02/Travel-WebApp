@@ -105,7 +105,7 @@ function AdminFlights() {
               <li><Link to="/Favorites">FAVORITES</Link></li>
               <li><Link to="/Account">ACCOUNT</Link></li>
             </ul>
-            <Link to="/Login" className="register-btn">Log In</Link>
+            <Link to="/Login" className="register-btn">Log Out</Link>
         </nav>
           <div className="admin-box">
             <nav className="flights-navbar">
@@ -132,10 +132,10 @@ function AdminFlights() {
       <div className="flight-container">
         {showFlightForm && (
         <div className="form-wrapper">
-        <div className="fligths-form">
-              <form id="AddFlightForm" className="fligths_form" onSubmit={handleSubmit}>
+        <div className="flights-form">
+              <form id="AddFlightForm" className="flights_form" onSubmit={handleSubmit}>
             <div className="flight-form-section">
-            <label className="fligt-label">
+            <label className="flight-label">
               Airline:
               <input
                 type="text"
@@ -148,7 +148,7 @@ function AdminFlights() {
             </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Flight Number:
                 <input
                   type="text"
@@ -160,7 +160,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-            <label className="fligt-label">
+            <label className="flight-label">
               Departure Airport:
               <input
                 type="text"
@@ -172,7 +172,7 @@ function AdminFlights() {
             </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Departure City:
                 <input
                   type="text"
@@ -184,7 +184,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Departure Time:
                 <input
                   type="text"
@@ -196,7 +196,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-            <label className="fligt-label">
+            <label className="flight-label">
               Arrival Airport:
               <input
                 type="text"
@@ -208,7 +208,7 @@ function AdminFlights() {
             </label>
             </div>
             <div className="flight-form-section">
-            <label className="fligt-label">
+            <label className="flight-label">
               Arrival City:
               <input
                 type="text"
@@ -220,7 +220,7 @@ function AdminFlights() {
             </label>
             </div>
             <div className="flight-form-section">
-            <label className="fligt-label">
+            <label className="flight-label">
               Arrival Time:
               <input
                 type="text"
@@ -232,7 +232,7 @@ function AdminFlights() {
             </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Duration:
                 <input
                   type="text"
@@ -244,7 +244,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Price:
                 <input
                   type="text"
@@ -256,7 +256,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Available Seats:
                 <input
                   type="text"
@@ -268,7 +268,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Aircraft Type:
                 <input
                   type="text"
@@ -280,7 +280,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Flight Class:
                 <input
                   type="text"
@@ -292,7 +292,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Stopovers:
                 <input
                   type="text"
@@ -304,7 +304,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Booking Info:
                 <input
                   type="text"
@@ -316,7 +316,7 @@ function AdminFlights() {
               </label>
             </div>
             <div className="flight-form-section">
-              <label className="fligt-label">
+              <label className="flight-label">
                 Images:
                 <input
                   type="text"

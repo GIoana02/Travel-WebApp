@@ -595,7 +595,7 @@ form input{
     display: flex;
     flex-direction: column;
 }
-.fligt-label{
+.flight-label{
     font-family: "Leelawadee UI";
     letter-spacing: 0.7px;
     font-style: italic;
@@ -620,5 +620,111 @@ form input{
 }
 
 .flights-table th {
+  background-color: #f2f2f2;
+}
+
+/*-------Admin Hotels Page*/
+.admin-box{
+    background-color: #e7e7e7;
+    margin-top: 20px;
+    margin-left:65px;
+    margin-right: 65px;
+    height: 800px;
+    border-radius: 30px;
+    display: flex;
+    overflow: hidden;
+}
+.hotels-navbar{
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    width: 300px;
+    background-color: #1f7ced;
+    height: inherit;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+
+}
+.hotels-buttons{
+    width: 270px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.adminHotelsButton{
+    box-shadow: 0 8px 27px 0 rgba(0, 222, 255, 0.37);
+    background-color: #c1ddff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 100%; /* Adjust the padding value for button width */
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.buttonHotelsText{
+    font-weight: bold;
+    margin-left: 10px;
+    color: #3d3b3b;
+}
+.hotel-container {
+    background-color: transparent;
+    height: 780px;
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    width: 1100px;
+    margin: 10px;
+    border-radius: 15px;
+}
+.form-wrapper {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(100% - 40px);
+  width: 60%;
+  margin-top: 20px; /* Apply top margin to the wrapper */
+}
+
+.hotels-form{
+    background-color: transparent;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-form-section{
+    margin-bottom: 5px;/* Margin at the bottom of each section */
+    display: flex;
+    flex-direction: column;
+}
+.hotel-label{
+    font-family: "Leelawadee UI";
+    letter-spacing: 0.7px;
+    font-style: italic;
+    color: #1f7cee;
+}
+
+.hotel-text-box{
+    border-radius: 15px;
+    width: 100%;
+}
+
+.hotel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hotels-table th,
+.hotels-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.hotels-table th {
   background-color: #f2f2f2;
 }

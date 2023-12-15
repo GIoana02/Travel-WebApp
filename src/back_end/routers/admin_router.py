@@ -4,12 +4,12 @@ from typing import List
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 
 from src.back_end.models.flight import Flight, FlightData
-from src.back_end.models.hotel import Hotel
+from src.back_end.models.hotel import Hotel, HotelData
 from src.back_end.models.room import Room
 from src.database.flights_database.flight_db import add_flight, delete_flight, update_flight, \
     get_flight_by_flight_number, get_all_flights, create_table
 from src.database.hotel_database.hotel_db import add_hotel, update_hotel_image_in_database, delete_hotel, update_hotel, \
-    get_all_hotels_admin
+    get_all_hotels_admin, get_all_hotels, create_table
 from src.database.hotel_database.room_db import add_room,update_room_image_in_database,update_room_availability, update_room, delete_room, get_room_by_id
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
@@ -57,6 +57,12 @@ async def update_room_info(room_id: int, room: Room):
             raise HTTPException(status_code=404, detail="Room not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post('/add_hotel/')
+async def add_hotel_endpoint(hotel: HotelData):
+    create_table()
+    add_hotel_endpoint(hotel)
+    return {"message": "hotel added successfully"}
 
 @router.delete("/delete-hotel/{room_id}")
 async def delete_room_entry(room_id: int):
@@ -109,10 +115,16 @@ async def delete_hotel_entry(hotel_name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/list-hotels")
-def admin_fetch_all_hotels() -> List[tuple]:
-    hotels = get_all_hotels_admin()
-    return hotels if hotels else []
+@router.get('/get_all_hotels/')
+async def get_all_hotels_endpoint():
+    all_hotels = get_all_hotels()
+    print(f"Getting all hotels ")
+    return all_hotels
+
+@router.get('/get_hotel_by_hotel_id/{hotel_id}')
+async def get_hotel_by_hotel_id_endpoint(hotel_id: str):
+    get_hotel_by_hotel_id(hotel_id)
+    return {"message": f"Getting hotel with hotel id {hotel_id}"}
 
 image_counter = 1
 

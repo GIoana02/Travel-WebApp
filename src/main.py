@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, File, UploadFile
 app = FastAPI()
 app.include_router(admin_router.router)
 app.include_router(login.router)
-app.include_router(hotel.hrouter)
+app.include_router(hotel.router)
 app.include_router(room.router)
 app.include_router(flight.router)
 app.include_router(userAccount.router)

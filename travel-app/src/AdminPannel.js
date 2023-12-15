@@ -31,7 +31,7 @@ const AdminPannel = () => {
               <li><Link to="/Favorites">FAVORITES</Link></li>
               <li><Link to="/Account">ACCOUNT</Link></li>
             </ul>
-            <Link to="/Login" className="register-btn">Log In</Link>
+            <Link to="/Login" className="register-btn">Log Out</Link>
         </nav>
           <div>
             <nav className="action-navbar">
