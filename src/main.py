@@ -26,10 +26,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-@app.post("/upload")
-async def receiveFile(file: UploadFile = File(...)):
-    contents = await file.read()
-    # Handle the file contents here (save it, process it, etc.)
-    # For example:
-    print(contents)
-    return {"filename": file.filename}

@@ -1,7 +1,6 @@
 import json
-import os
 import sqlite3
-import os
+
 
 DATABASE_NAME = "src/database/user_database/user"
 
@@ -104,15 +103,16 @@ def get_user_by_username(username: str):
     connection = create_connection()
     try:
         cursor = connection.cursor()
-        cursor.execute("SELECT id, username, password, role_user FROM UserInfo WHERE username = ?", (username,))
+        cursor.execute("SELECT id, email, username, password, role_user FROM UserInfo WHERE username = ?", (username,))
         print("User login successfully.")
         user_data = cursor.fetchone()
         if user_data:
             user_info = {
                 "id": user_data[0],
-                "username": user_data[1],
-                "password": user_data[2],
-                "role": user_data[3]
+                "email": user_data[1],
+                "username": user_data[2],
+                "password": user_data[3],
+                "role": user_data[4]
             }
             print(user_info)
             return user_info
@@ -129,7 +129,7 @@ def get_user_info(email: str):
     cursor = connection.cursor()
 
     try:
-        cursor.execute("SELECT * FROM UserInfo WHERE user_email=?", (email,))
+        cursor.execute("SELECT * FROM UserInfo WHERE email=?", (email,))
         user_info = cursor.fetchone()
         if user_info:
             return user_info
@@ -200,7 +200,7 @@ def delete_favorite_flight(email: str, favorite_flight_id: int):
     cursor = connection.cursor()
 
     try:
-        cursor.execute("DELETE FROM FavoriteFlights WHERE user_email=? AND favorite_flight_id=?", (email, favorite_flight_id))
+        cursor.execute("DELETE FROM FavoriteFlights WHERE user_email=? AND flight_id=?", (email, favorite_flight_id))
         connection.commit()
         return True
     except sqlite3.Error as e:
@@ -210,12 +210,12 @@ def delete_favorite_flight(email: str, favorite_flight_id: int):
         connection.close()
 
 # Function to delete favorite hotel for a user
-def delete_favorite_hotel(email: str, favorite_hotel_id: int):
+def delete_favorite_hotel(email: str, favorite_hotel_name: int):
     connection = create_connection()
     cursor = connection.cursor()
 
     try:
-        cursor.execute("DELETE FROM FavoriteHotels WHERE user_email=? AND favorite_hotel_id=?", (email, favorite_hotel_id))
+        cursor.execute("DELETE FROM FavoriteHotels WHERE user_email=? AND hotel_id=?", (email, favorite_hotel_name))
         connection.commit()
         return True
     except sqlite3.Error as e:
@@ -496,3 +496,34 @@ def finalize_reservation(cart_id, user_email):
     finally:
         connection.close()
 
+def add_favorite_flight(user_email, flight_id):
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("INSERT INTO FavoriteFlights (user_email, flight_id) VALUES (?, ?)",
+                       (user_email, flight_id))
+        connection.commit()
+        print("Favorite flight added successfully.")
+        return True
+    except sqlite3.Error as e:
+        print(f"Error adding favorite flight: {e}")
+        return False
+    finally:
+        connection.close()
+
+def add_favorite_hotel(user_email, hotel_id):
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("INSERT INTO FavoriteHotels (user_email, hotel_id) VALUES (?, ?)",
+                       (user_email, hotel_id))
+        connection.commit()
+        print("Favorite hotel added successfully.")
+        return True
+    except sqlite3.Error as e:
+        print(f"Error adding favorite hotel: {e}")
+        return False
+    finally:
+        connection.close()
