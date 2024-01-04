@@ -622,3 +622,22 @@ form input{
 .flights-table th {
   background-color: #f2f2f2;
 }
+
+/*---------------*/
+.account-container {
+  padding: 20px;
+}
+
+.account-nav button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.general-info, .previous-trips, .favorite-section {
+  margin-top: 20px;
+}
+
+.favorite-section > div {
+  margin-bottom: 20px;
+}

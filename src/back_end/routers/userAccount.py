@@ -7,16 +7,17 @@ from src.database.flights_database.flight_db import get_flight_by_flight_number
 router = APIRouter(prefix="/user", tags=["UserAccount"])
 
 # Endpoint to get user information by email
-@router.get("/info/{email}")
+@router.get("/info")
 async def get_user_info_by_email(current_user: dict = Depends(get_current_user)):
     user_info = get_user_info(current_user["email"])
+    print(user_info)
     if user_info:
         return user_info
     else:
         raise HTTPException(status_code=404, detail="User information not found")
 
 # Endpoint to get previous trips of a user
-@router.get("/previous_trips/{email}")
+@router.get("/previous_trips")
 async def get_user_previous_trips(current_user: UserAccount = Depends(get_current_user)):
     trips = get_previous_trips(current_user["email"])
     if trips:
@@ -25,7 +26,7 @@ async def get_user_previous_trips(current_user: UserAccount = Depends(get_curren
         raise HTTPException(status_code=404, detail="Previous trips not found for the user")
 
 # Endpoint to get favorite flights of a user
-@router.get("/favorite_flights/{email}")
+@router.get("/favorite_flights")
 async def get_user_favorite_flights(current_user: dict = Depends(get_current_user)):
     favorite_flights = get_favorite_flights(current_user["email"])
     if favorite_flights:
@@ -34,7 +35,7 @@ async def get_user_favorite_flights(current_user: dict = Depends(get_current_use
         raise HTTPException(status_code=404, detail="Favorite flights not found for the user")
 
 # Endpoint to get favorite hotels of a user
-@router.get("/favorite_hotels/{email}")
+@router.get("/favorite_hotels")
 async def get_user_favorite_hotels(current_user: dict = Depends(get_current_user)):
     favorite_hotels = get_favorite_hotels(current_user["email"])
     if favorite_hotels:
@@ -42,7 +43,7 @@ async def get_user_favorite_hotels(current_user: dict = Depends(get_current_user
     else:
         raise HTTPException(status_code=404, detail="Favorite hotels not found for the user")
 
-@router.delete("/delete_favorite_flight")
+@router.delete("/delete_favorite_flight/{favorite_flight_no}")
 async def delete_user_favorite_flight(favorite_flight_no: str, current_user: dict = Depends(get_current_user)):
     success = delete_favorite_flight(current_user["email"], favorite_flight_no)
     current_user_email= current_user["email"]
@@ -53,7 +54,7 @@ async def delete_user_favorite_flight(favorite_flight_no: str, current_user: dic
                             detail=f"Failed to delete favorite flight {favorite_flight_no} for user {current_user_email}")
 
 
-@router.delete("/delete_favorite_hotel")
+@router.delete("/delete_favorite_hotel/{favorite_hotel_name}")
 async def delete_user_favorite_hotel(favorite_hotel_name: str, current_user: dict = Depends(get_current_user)):
     success = delete_favorite_hotel(current_user["email"], favorite_hotel_name)
     current_user_email = current_user["email"]
