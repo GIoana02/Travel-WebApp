@@ -7,10 +7,12 @@ from src.back_end.models.flight import Flight, FlightData
 from src.back_end.models.hotel import Hotel
 from src.back_end.models.room import Room
 from src.database.flights_database.flight_db import add_flight, delete_flight, update_flight, \
-    get_flight_by_flight_number, get_all_flights, create_table
+    get_flight_by_flight_number, get_all_flights
 from src.database.hotel_database.hotel_db import add_hotel, update_hotel_image_in_database, delete_hotel, update_hotel, \
     get_all_hotels_admin
 from src.database.hotel_database.room_db import add_room,update_room_image_in_database,update_room_availability, update_room, delete_room, get_room_by_id
+from src.database.user_database.user_database import get_all_reservations_admin, create_table, get_reservation_by_id, update_reservation_admin, add_reservation_admin
+from src.back_end.models.reservation import Reservation
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
 ROOM_IMAGES_DIRECTORY = "src/images/rooms_img"
@@ -134,14 +136,16 @@ def save_uploaded_image(hotel_name: str,hotel_image: UploadFile):
 
 @router.post('/add_flight/')
 async def add_flight_endpoint(flight: FlightData):
-    create_table()
     add_flight(flight)
     return {"message": "Flight added successfully"}
 
-@router.delete('/delete_flight/{flight_id}')
-async def delete_flight_endpoint(flight_id: int):
-    delete_flight(flight_id)
-    return {"message": "Flight deleted successfully"}
+@router.delete('/delete_flight/{flight_number}')
+async def delete_flight_endpoint(flight_number: str):
+    try:
+        delete_flight(flight_number)
+        return {"message": "Flight deleted successfully"}
+    except Exception as e:
+        return {"error": str(e)}, 400
 
 @router.put('/update_flight/{flight_id}')
 async def update_flight_endpoint(flight_id: int, flight: FlightData):
@@ -158,3 +162,38 @@ async def get_all_flights_endpoint():
     all_flights = get_all_flights()
     print(f"Getting all flights ")
     return all_flights
+
+@router.get("/reservation/all", response_model=List[Reservation])
+async def get_all_reservations():
+    reservations = get_all_reservations_admin()
+    if reservations is None:
+        raise HTTPException(status_code=404, detail="Reservations not found")
+    return reservations
+
+@router.put("/reservation/update/{reservation_id}", response_model=Reservation)
+async def update_reservation_admin(reservation_id: int, reservation_details: str):
+    updated_reservation = update_reservation_admin(reservation_id, reservation_details)
+    if updated_reservation is None:
+        raise HTTPException(status_code=404, detail="Reservation not found or update failed")
+    return {"message": "Reservation updated successfully"}
+
+@router.delete("/reservation/delete/{reservation_id}")
+async def delete_reservation_admin(reservation_id: int):
+    result = delete_reservation_admin(reservation_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="Reservation not found or deletion failed")
+    return {"message": "Reservation deleted successfully"}
+
+@router.post("/reservation/add", response_model=Reservation)
+async def add_reservation_by_admin(reservation: Reservation, user_email: str):
+    create_table()
+    new_reservation_id = add_reservation_admin(reservation.reservation_details, user_email)
+    if new_reservation_id is None:
+        raise HTTPException(status_code=500, detail="Error adding reservation by admin")
+
+    new_reservation = get_reservation_by_id(new_reservation_id)
+    if new_reservation is None:
+        raise HTTPException(status_code=404, detail="Newly added reservation not found")
+
+    return new_reservation
+

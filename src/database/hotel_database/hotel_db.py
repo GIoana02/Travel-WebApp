@@ -98,7 +98,7 @@ def update_hotel_image_in_database(hotel_name: str, image_url: str):
     print("Hotel image URL updated in the database.")
 
 
-def get_hotel_by_id(hotel_name):
+def get_hotel_by_name(hotel_name):
     connection = create_connection(DATABASE_NAME)
     cursor = connection.cursor()
 

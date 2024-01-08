@@ -1,6 +1,6 @@
 from typing import List
 from fastapi import APIRouter, HTTPException, UploadFile, Form, File
-from src.database.hotel_database.hotel_db import get_all_hotels, get_hotel_by_id
+from src.database.hotel_database.hotel_db import get_all_hotels, get_hotel_by_name
 
 hrouter = APIRouter(prefix="/hotels", tags=["Hotels"])
 

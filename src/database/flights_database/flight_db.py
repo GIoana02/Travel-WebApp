@@ -85,13 +85,13 @@ def add_flight(flight_data):
         cursor.close()
         connection.close()
 
-def delete_flight(flight_id):
+def delete_flight(flight_number):
     connection = sqlite3.connect(DATABASE_NAME)
     cursor = connection.cursor()
 
     try:
 
-        cursor.execute('DELETE FROM Flights WHERE flight_id = ?', (flight_id,))
+        cursor.execute('DELETE FROM Flights WHERE flight_number = ?', (flight_number,))
         connection.commit()
         print("Flight deleted successfully.")
     except sqlite3.Error as e:

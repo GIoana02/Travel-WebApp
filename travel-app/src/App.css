@@ -444,80 +444,200 @@ form input{
     height: 3px;
     margin-top: 8px;
 }
-/*-------flights_page*/
-.action-navbar .flights-navbar li a{
-    color: #000;
-}
+/*-------Admin Pannel Page*/
+
 .action-navbar {
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    height: 1cm;
-    margin-top: 0.2cm;
-    margin-bottom: 1cm;
-    margin-right: 4cm;
-    margin-left: 4cm;
+    background-color: #e7e7e7;
+    margin-top: 20px;
+    margin-left:65px;
+    margin-right: 65px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
 }
 
-.flights-navbar li{
-    text-align: center;
-    list-style: none;
-    display: inline-block;
-    margin: 10px 20px;
-    margin-top: 0.7cm;
-    margin-left: 2px;
+.adminButton{
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    padding: 150px 150px;
+    font-size: 50px;
+    margin: 45px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
-.flights-navbar li a {
-    text-indent: 30px;
-    color: #000;
-    text-decoration: none;
-    font-size: 13px;
+
+.icon {
+    color: #867f7f;
+    position: absolute;
+    top: 85px; /* Adjust the icon's top position */
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 80px;
+    display: flex;
+    text-align: center; /* Adjust this value to center the icon */
+    justify-content: center;
+    align-items: center;
 }
-.flights-navbar li::after{
-    content: '';
-    width: 0%;
-    height: 2px;
-    background: #1f7cee;
+
+.tilted-plane {
+  transform: rotate(-45deg); /* Adjust the degree of rotation as needed */
+}
+
+.text {
+    color: #000000;
+    letter-spacing: 1.5px;
+    font-family: "Leelawadee UI";
+    font-variant: all-small-caps;
+    position: absolute;
+    bottom: 30px; /* Adjust the text's bottom position */
+    left: 0;
+    right: 0;
+    font-size: 30px; /* Text size */
     display: block;
-    transition: 0.5s;
+    margin: auto;
+    text-align: center;
+    transition: opacity 0.3s ease;
 }
-.flights-navbar li:hover::after{
+
+.adminButton:hover .text {
+    opacity: 0; /* Hide the text on hover */
+}
+
+.adminButton:hover .icon{
+    color: #1f7ced;
+    font-size: 100px;
+}
+
+/*-------Admin Flights Page*/
+
+.admin-box{
+    background-color: #e7e7e7;
+    margin-top: 20px;
+    margin-left:65px;
+    margin-right: 65px;
+    height: 800px;
+    border-radius: 30px;
+    display: flex;
+    overflow: hidden;
+}
+.flights-navbar{
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    width: 300px;
+    background-color: #1f7ced;
+    height: inherit;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+
+}
+.flights-buttons{
+    width: 270px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.adminFlightsButton{
+    box-shadow: 0 8px 27px 0 rgba(0, 222, 255, 0.37);
+    background-color: #c1ddff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 100%; /* Adjust the padding value for button width */
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.buttonFlightsText{
+    font-weight: bold;
+    margin-left: 10px;
+    color: #3d3b3b;
+}
+.flight-container {
+    background-color: transparent;
+    height: 780px;
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+    width: 1100px;
+    margin: 10px;
+    border-radius: 15px;
+}
+.form-wrapper {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(100% - 40px);
+  width: 60%;
+  margin-top: 20px; /* Apply top margin to the wrapper */
+}
+
+.flights-form{
+    background-color: transparent;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flight-form-section{
+    margin-bottom: 5px;/* Margin at the bottom of each section */
+    display: flex;
+    flex-direction: column;
+}
+.fligt-label{
+    font-family: "Leelawadee UI";
+    letter-spacing: 0.7px;
+    font-style: italic;
+    color: #1f7cee;
+}
+
+.flight-text-box{
+    border-radius: 15px;
     width: 100%;
 }
 
-.fligths_form{
-    text-indent: 30px;
-    text-align: center;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    margin-right: 10cm;
-    margin-left: 10cm;
+.flights-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.label{
-    color: #1f7cee;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+.flights-table th,
+.flights-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
-.text_box{
-    margin-left: 8.2cm;
-    width: 25%;
-}
-.flights_submit_button{
-    margin-left: 1.2cm;
-    width: 10%;
+.flights-table th {
+  background-color: #f2f2f2;
 }
 
-.flights-overlay{
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    height: 1cm;
-    margin: auto;
+/*---------------*/
+.account-container {
+  padding: 20px;
 }
-.flights-list{
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    height: 1cm;
-    margin: auto;
+
+.account-nav button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.general-info, .previous-trips, .favorite-section {
+  margin-top: 20px;
+}
+
+.favorite-section > div {
+  margin-bottom: 20px;
 }

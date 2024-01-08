@@ -50,6 +50,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     user = get_user_by_username(username=token_data["sub"])
     if user is None:
         raise credentials_exception
+    print(user)
     return user
 
 async def authenticate_user(username: str, password: str):
