@@ -13,19 +13,21 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
-import {React, useState} from "react";
+import {React, useEffect, useState} from "react";
 import logoImage from "./images/logo0.png";
-import hotelImg from "./images/hotel.png";
-import flightImg from "./images/flights.png";
+import hotelImg from "./images/home-hotels.jpg";
+import flightImg from "./images/home-flights.jpg";
 import fhImg from "./images/f&h.jpeg";
 import "./App.css";
 import {Link} from "react-router-dom";
-
+import {logoutUser} from "./logout_function";
 const Home = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [destination, setDestination] = useState("");
-  const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState([
-    {
+    const [openDate, setOpenDate] = useState(false);
+    const navigate = useNavigate();
+    const [date, setDate] = useState([
+        {
       startDate: new Date(),
       endDate: new Date(),
       key: "selection",
@@ -37,9 +39,15 @@ const Home = () => {
     children: 0,
     room: 1,
   });
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); // Set to true if token exists, otherwise false
+  }, []);
 
-  const navigate = useNavigate();
-
+  const handleLogout = async () => {
+    await logoutUser();
+    setIsLoggedIn(false); // Update state to reflect logged out status
+  };
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -54,134 +62,30 @@ const Home = () => {
   };
 return (
     <div>
-      <div className="header">
+      <div className="header-home">
           <nav>
               <Link to="/"><img src={logoImage} className="logo0" alt="Logo"/></Link>
-              <ul className="nav-links">
-                  <li><Link to="/">HOME</Link></li>
-                  <li><Link to="/Offers">OFFERS</Link></li>
-                  <li><Link to="/Orders">ORDERS</Link></li>
-                  <li><Link to="/Favorites">FAVORITES</Link></li>
-                  <li><Link to="/Account">ACCOUNT</Link></li>  
+              <ul className="nav-links-home">
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/Flights">Flights</Link></li>
+                  <li><Link to="/Hotels">Hotels</Link></li>
+                  <li><Link to="/Cart">Cart</Link></li>
+                  <li><Link to="/Account">Account</Link></li>
               </ul>
-              <Link to="/Login" className="register-btn">Log In</Link>
+              {isLoggedIn ? (
+                <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+              ) : (
+                <Link to="/Login" className="register-btn">Log In</Link>
+              )}
           </nav>
           <div className="container">
-              <div className="text-box">
-                  <h1>Let us be your guide to an unforgettable vacation!</h1>
-                  <div className="headerSearch">
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                <input
-                  type="text"
-                  placeholder="Where are you going?"
-                  className="headerSearchInput"
-                  onChange={(e) => setDestination(e.target.value)}
-                />
-              </div>
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-                <span
-                  onClick={() => setOpenDate(!openDate)}
-                  className="headerSearchText"
-                >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
-                  date[0].endDate,
-                  "MM/dd/yyyy"
-                )}`}</span>
-                {openDate && (
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
-                    moveRangeOnFirstSelection={false}
-                    ranges={date}
-                    className="date"
-                    minDate={new Date()}
-                  />
-                )}
-              </div>
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-                <span
-                  onClick={() => setOpenOptions(!openOptions)}
-                  className="headerSearchText"
-                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
-                {openOptions && (
-                  <div className="options">
-                    <div className="optionItem">
-                      <span className="optionText">Adult</span>
-                      <div className="optionCounter">
-                        <button
-                          disabled={options.adult <= 1}
-                          className="optionCounterButton"
-                          onClick={() => handleOption("adult", "d")}
-                        >
-                          -
-                        </button>
-                        <span className="optionCounterNumber">
-                          {options.adult}
-                        </span>
-                        <button
-                          className="optionCounterButton"
-                          onClick={() => handleOption("adult", "i")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div className="optionItem">
-                      <span className="optionText">Children</span>
-                      <div className="optionCounter">
-                        <button
-                          disabled={options.children <= 0}
-                          className="optionCounterButton"
-                          onClick={() => handleOption("children", "d")}
-                        >
-                          -
-                        </button>
-                        <span className="optionCounterNumber">
-                          {options.children}
-                        </span>
-                        <button
-                          className="optionCounterButton"
-                          onClick={() => handleOption("children", "i")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div className="optionItem">
-                      <span className="optionText">Room</span>
-                      <div className="optionCounter">
-                        <button
-                          disabled={options.room <= 1}
-                          className="optionCounterButton"
-                          onClick={() => handleOption("room", "d")}
-                        >
-                          -
-                        </button>
-                        <span className="optionCounterNumber">
-                          {options.room}
-                        </span>
-                        <button
-                          className="optionCounterButton"
-                          onClick={() => handleOption("room", "i")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="headerSearchItem">
-                <button className="headerBtn" onClick={handleSearch}>
-                  Search
-                </button>
-              </div>
-            </div>
-        </div>
+
       <div className="bookings">
-          <h1>Recommended Hotels & Flights</h1>
+          <div className="text-box">
+                  <h1>Let us be your guide to an unforgettable vacation!</h1>
+                    <h1>Recommended Hotels & Flights</h1>
+            </div>
+
           <p>Don't miss your chance. Choose the one that suits you best!</p>
           <div className="categories">
             <div>
@@ -199,14 +103,6 @@ return (
                   <h2>Book Flights</h2>
                   <p>Starting from 30$</p></Link>
                 </span>
-            </div>
-            <div>
-              <Link to="/Offers" className="hf-btn"><img src={fhImg} className="fh" alt="fh"/></Link>
-              <span>
-                <Link to="/Offers" className="hf-btn">
-                <h2>View Offers</h2>
-                <p>Starting from 150$/night</p></Link>
-              </span>
             </div>
         </div>
         </div>

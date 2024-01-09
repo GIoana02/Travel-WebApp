@@ -1,6 +1,6 @@
 from typing import List
 from src.database.user_database.user_database import (
-    get_cart_items, add_to_cart, remove_from_cart, finalize_reservation, create_table
+    get_cart_items, add_hotel_to_cart, remove_from_cart, finalize_reservation, create_table, add_flight_to_cart
 )
 from src.back_end.routers.login import get_current_user
 from src.back_end.models.cart import Cart
@@ -8,7 +8,7 @@ from fastapi import APIRouter, HTTPException, Depends, Cookie
 
 router = APIRouter(prefix="/cart", tags=["Cart"])
 
-@router.get("/{user_email}")
+@router.get("/items")
 async def get_user_cart(current_user: dict = Depends(get_current_user)):
     user_email = current_user["email"]
     cart_items = get_cart_items(user_email)
@@ -16,10 +16,18 @@ async def get_user_cart(current_user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=404, detail="Cart items not found")
     return cart_items
 
-@router.post("/add")
-async def add_item_to_cart(reservation_id: int, current_user: dict = Depends(get_current_user)):
+@router.post("/add/hotel")
+async def add_hotel_item_to_cart(hotel_name: str, current_user: dict = Depends(get_current_user)):
     user_email = current_user["email"]
-    result = add_to_cart(user_email, reservation_id)
+    result = add_hotel_to_cart(user_email, hotel_name)
+    if not result:
+        raise HTTPException(status_code=500, detail="Error adding item to cart")
+    return {"message": "Item added to cart successfully"}
+
+@router.post("/add/flight")
+async def add_flight_item_to_cart(flight_no: str, current_user: dict = Depends(get_current_user)):
+    user_email = current_user["email"]
+    result = add_flight_to_cart(user_email, flight_no)
     if not result:
         raise HTTPException(status_code=500, detail="Error adding item to cart")
     return {"message": "Item added to cart successfully"}

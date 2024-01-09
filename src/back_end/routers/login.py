@@ -39,6 +39,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    print(token)
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
@@ -97,4 +98,9 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
 @router.get("/protected-route")
 async def protected_route(current_user: dict = Depends(get_current_user)):
     return {"message": "Access granted"}
+
+@router.post("/logout")
+async def logout_user(response: Response):
+    response.delete_cookie(key="access_token")
+    return {"message": "Logged out successfully"}
 

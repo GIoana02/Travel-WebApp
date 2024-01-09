@@ -1,6 +1,9 @@
 import json
 import sqlite3
+import uuid
 
+from src.database.flights_database.flight_db import get_flight_by_flight_number
+from src.database.hotel_database.hotel_db import get_hotel_by_name
 
 DATABASE_NAME = "src/database/user_database/user"
 
@@ -70,7 +73,7 @@ def create_table():
                                 cart_id INTEGER PRIMARY KEY AUTOINCREMENT,
                                 user_email TEXT,
                                 reservation_id INTEGER,
-                                FOREIGN KEY (reservation_id) REFERENCES Reservations(reservation_id),
+                                reservation_details TEXT,
                                 FOREIGN KEY (user_email) REFERENCES UserInfo(email)
                             )
                         ''')
@@ -399,35 +402,66 @@ def get_cart_items(user_email):
     cursor = connection.cursor()
 
     try:
-        cursor.execute("SELECT reservation_id FROM Cart WHERE user_email = ?", (user_email,))
-        cart_items_ids = cursor.fetchall()
-        cart_items = []
-        for (reservation_id,) in cart_items_ids:
-            cursor.execute("SELECT * FROM Reservations WHERE reservation_id = ?", (reservation_id,))
-            reservation_row = cursor.fetchone()
-            if reservation_row:
-                # Assuming reservation_row[1] is the JSON string of reservation_details
-                reservation_details = json.loads(reservation_row[1])
-                cart_items.append({
-                    "reservation_id": reservation_row[0],
-                    "reservation_details": reservation_details,
-                    # Add other fields as necessary
-                })
-                print(cart_items)
-        return cart_items
+        # Query to get all items from Cart for the given user_email
+        cursor.execute("SELECT * FROM Cart WHERE user_email = ?", (user_email,))
+        cart_items = cursor.fetchall()
+
+        cart_details = []
+        for item in cart_items:
+            # Extracting details from each item
+            cart_id = item[0]
+            reservation_id = item[2]
+            reservation_details = item[3]
+
+            # Add the cart item details to the list
+            cart_details.append({
+                "cart_id": cart_id,
+                "reservation_id": reservation_id,
+                "reservation_details": reservation_details,
+            })
+
+        return cart_details
     except sqlite3.Error as e:
         print(f"Error fetching cart items: {e}")
         return None
     finally:
         connection.close()
 
-def add_to_cart(user_email, reservation_id):
+def add_hotel_to_cart(user_email, hotel_name):
+    reservation_id = str(uuid.uuid4())
+    hotel_details = get_hotel_by_name(hotel_name)
+    if hotel_details is None:
+        print("Hotel not found.")
+        return False
+    hotel_details_str = json.dumps(hotel_details)
     connection = create_connection()
     cursor = connection.cursor()
 
     try:
-        cursor.execute("INSERT INTO Cart (user_email, reservation_id) VALUES (?, ?)",
-                       (user_email, reservation_id))
+        cursor.execute("INSERT INTO Cart (user_email, reservation_id, reservation_details) VALUES (?, ?, ?)",
+                       (user_email, reservation_id, hotel_details_str))
+        connection.commit()
+        print("Added to cart successfully.")
+        return True
+    except sqlite3.Error as e:
+        print(f"Error adding to cart: {e}")
+        return False
+    finally:
+        connection.close()
+
+def add_flight_to_cart(user_email, flight_no):
+    reservation_id = str(uuid.uuid4())
+    flight_details = get_flight_by_flight_number(flight_no)
+    if flight_details is None:
+        print("Hotel not found.")
+        return False
+    flight_details_str = json.dumps(flight_details)
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("INSERT INTO Cart (user_email, reservation_id, reservation_details) VALUES (?, ?, ?)",
+                       (user_email, reservation_id, flight_details_str))
         connection.commit()
         print("Added to cart successfully.")
         return True
@@ -512,13 +546,13 @@ def add_favorite_flight(user_email, flight_id):
     finally:
         connection.close()
 
-def add_favorite_hotel(user_email, hotel_id):
+def add_favorite_hotel(user_email, hotel_name):
     connection = create_connection()
     cursor = connection.cursor()
 
     try:
         cursor.execute("INSERT INTO FavoriteHotels (user_email, hotel_id) VALUES (?, ?)",
-                       (user_email, hotel_id))
+                       (user_email, hotel_name))
         connection.commit()
         print("Favorite hotel added successfully.")
         return True

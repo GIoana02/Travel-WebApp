@@ -2,6 +2,7 @@ import os
 from typing import List
 
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+from starlette.responses import FileResponse
 
 from src.back_end.models.flight import Flight, FlightData
 from src.back_end.models.hotel import Hotel
@@ -9,7 +10,7 @@ from src.back_end.models.room import Room
 from src.database.flights_database.flight_db import add_flight, delete_flight, update_flight, \
     get_flight_by_flight_number, get_all_flights
 from src.database.hotel_database.hotel_db import add_hotel, update_hotel_image_in_database, delete_hotel, update_hotel, \
-    get_all_hotels_admin
+    get_all_hotels_admin, get_hotel_image_url
 from src.database.hotel_database.room_db import add_room,update_room_image_in_database,update_room_availability, update_room, delete_room, get_room_by_id
 from src.database.user_database.user_database import get_all_reservations_admin, create_table, get_reservation_by_id, update_reservation_admin, add_reservation_admin
 from src.back_end.models.reservation import Reservation
@@ -118,6 +119,27 @@ def admin_fetch_all_hotels() -> List[tuple]:
 
 image_counter = 1
 
+@router.get("/hotel/{name}/get-image")
+async def get_image_url(hotel_name: str):
+    image_url = get_hotel_image_url(hotel_name)
+
+    if image_url:
+        return {"name": hotel_name, "url": image_url}
+    else:
+        raise HTTPException(status_code=404, detail="Image not found")
+@router.get("/hotel/display-image/{name}")
+async def display_image(hotel_name: str):
+    image_url = get_hotel_image_url(hotel_name)
+    print(image_url)
+    if image_url:
+        image_path = os.path.join(HOTEL_IMAGES_DIRECTORY, image_url.split('/')[-1])  # Extract filename from URL
+        if os.path.exists(image_path):
+            return FileResponse(image_path)
+        else:
+            raise HTTPException(status_code=404, detail="Image not found")
+    else:
+        raise HTTPException(status_code=404, detail="Image not found")
+
 def save_uploaded_image(hotel_name: str,hotel_image: UploadFile):
     global image_counter
 
@@ -197,3 +219,7 @@ async def add_reservation_by_admin(reservation: Reservation, user_email: str):
 
     return new_reservation
 
+@router.post("/")
+async def create_tables():
+    create_table()
+    return

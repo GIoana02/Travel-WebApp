@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from "./api";
 import { Link } from 'react-router-dom';
 import logoImage from "./images/logo0.png";
+import {logoutUser} from "./logout_function";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
   });
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
   };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); // Set to true if token exists, otherwise false
+  }, []);
 
+  const handleLogout = async () => {
+    await logoutUser();
+    setIsLoggedIn(false); // Update state to reflect logged out status
+  };
   const handleLogin = async (e) => {
   e.preventDefault();
   try {
@@ -40,17 +49,23 @@ const Login = () => {
 
   return (
   <div>
-    <nav id="navbar" className="nav-white-login">
-        <Link to="/"><img src={logoImage} className="logo0" alt="Logo"/></Link>
-          <ul className="nav-links">
-            <li><Link to="/">HOME</Link></li>
-            <li><Link to="/Offers">OFFERS</Link></li>
-            <li><Link to="/Orders">ORDERS</Link></li>
-            <li><Link to="/Favorites">FAVORITES</Link></li>
-            <li><Link to="/Account">ACCOUNT</Link></li>
-          </ul>
-          <Link to="/Login" className="register-btn">Log In</Link>
-    </nav>
+    <div className="header-pages">
+        <nav id="navbar" className="nav-white-login">
+          <Link to="/"><img src={logoImage} className="logo0" alt="Logo"/></Link>
+              <ul className="nav-links">
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/Flights">Flights</Link></li>
+                    <li><Link to="/Hotels">Hotels</Link></li>
+                    <li><Link to="/Cart">Cart</Link></li>
+                    <li><Link to="/Account">Account</Link></li>
+                </ul>
+                {isLoggedIn ? (
+                  <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+                ) : (
+                  <Link to="/Login" className="register-btn">Log In</Link>
+                )}
+        </nav>
+    </div>
     <div className="account-page">
       <div className="form-container">
         <div className="form-btn">

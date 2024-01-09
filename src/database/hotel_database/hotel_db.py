@@ -107,7 +107,6 @@ def get_hotel_by_name(hotel_name):
                 checkin_time, checkout_time, amenities, room_types, room_prices,
                 images, availability, booking_info, reviews FROM Hotels WHERE hotel_name=?''', (hotel_name,))
     hotel = cursor.fetchone()
-    print(f"{hotel}")
     connection.close()
     return hotel
 
@@ -187,5 +186,20 @@ def get_all_hotels():
     except sqlite3.Error as e:
         print(f"Error fetching hotels: {e}")
         return None
+    finally:
+        connection.close()
+
+def get_hotel_image_url(hotel_name: str):
+    connection = create_connection(DATABASE_NAME)
+    try:
+        cursor = connection.cursor()
+        cursor.execute("SELECT images FROM Hotels WHERE hotel_name=?", (hotel_name,))
+        result = cursor.fetchone()
+        if result:
+            return result[0]
+        else:
+            return None
+    except sqlite3.Error as e:
+        print(f"Error retrieving image URL: {e}")
     finally:
         connection.close()

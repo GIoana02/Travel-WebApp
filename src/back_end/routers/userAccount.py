@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Body
 from src.back_end.models.userAccount import UserAccount
 from src.database.user_database.user_database import add_favorite_flight, add_favorite_hotel, delete_favorite_hotel, delete_favorite_flight, get_favorite_flights, get_user_info, get_favorite_hotels, get_previous_trips
 from src.back_end.routers.login import get_current_user
@@ -81,7 +81,10 @@ async def add_flight_to_favorites(flight_no: str, current_user: dict = Depends(g
 @router.post("/add_favorite_hotel")
 async def add_hotel_to_favorites(hotel_name: str, current_user: dict = Depends(get_current_user)):
     # Validate the hotel exists
+    print(current_user["email"])
+    print(hotel_name)
     hotel_info = get_hotel_by_name(hotel_name)
+
     if not hotel_info:
         raise HTTPException(status_code=404, detail="Hotel not found")
 

@@ -15,6 +15,7 @@ import HotelDetail from "./HotelDetail";
 import FlightDetail from "./FlightDetail";
 import AdminPannel from "./AdminPannel";
 import DeleteFlight from "./DeleteFlight";
+import Cart from "./Cart";
 
 const App = () => {
   const handleLogin = () => {
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/flight/:flight_number" element={<FlightDetail/>} />
         <Route path="/AdminPannel" element={<AdminPannel/>} />
         <Route path="/DeleteFLights" element={<DeleteFlight/>}/>
+        <Route path="/Cart" element={<Cart/>}/>
         {/* Add more routes for other pages */}
       </Routes>
     </div>
